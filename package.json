@@ -1,0 +1,40 @@
+{
+  "name": "porterjs",
+  "version": "1.0.0",
+  "description": "Simplified JS framweork for rendering.",
+  "main": "./src/main.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --hot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahopkins/porterjs.git"
+  },
+  "keywords": [
+    "JS",
+    "framework"
+  ],
+  "author": "Adam Hopkins",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ahopkins/porterjs/issues"
+  },
+  "homepage": "https://github.com/ahopkins/porterjs#readme",
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "webpack": "^1.13.2",
+    "webpack-obfuscator": "^0.7.3"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.16.0",
+    "document-ready-promise": "^3.0.1"
+  }
+}
