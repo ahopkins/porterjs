@@ -4,45 +4,60 @@ export class Request {
     constructor (url) {
         this.req = new XMLHttpRequest()
         this.url = url
+        this.data = {}
+        this.csrftoken = null
 
         this.resolve = () => { console.log('NOT IMPLEMENTED') }
         this.reject = () => { console.log('NOT IMPLEMENTED') }
 
         this.req.onload = () => {
+            this.response = new Response(this.req)
             if (this.req.status >= 200 && this.req.status < 400) {
-                this.response = new Response(this.req)
                 this.resolve(this.response)
             } else {
-                this.response = null
                 this.reject({
                     status: this.response.status,
-                    statusText: this.response.statusText
+                    responseText: this.response.responseText
                 })
+                this.response = null
             }
         }
         this.req.onerror = () => {
-            this.response = null
+            this.response = new Response(this.req)
             this.reject({
                 status: this.response.status,
-                statusText: this.response.statusText
+                responseText: this.response.responseText
             })
+            this.response = null
         }
     }
 
-    get () {
+    get (data, _) {
+        this.data = data
         const method = "GET"
         return this.send(method)
     }
 
-    post (data) {
+    post (data, csrftoken) {
+        this.data = data
+        this.csrftoken = csrftoken
         const method = "POST"
         return this.send(method)
     }
 
     send (method) {
         method = method || "GET"
+
+        const params = typeof this.data == 'string' ? this.data : Object.keys(this.data).map(
+            function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(this.data[k]) }.bind(this)
+        ).join('&')
+
         this.req.open(method, this.url, true)
-        this.req.send()
+        if (['OPTIONS', 'HEAD', 'GET'].includes(method) == false) {
+            this.req.setRequestHeader("X-CSRFToken", this.csrftoken);
+        }
+        this.req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        this.req.send(params)
         return new Promise((resolve, reject) => {
             this.resolve = resolve
             this.reject = resolve

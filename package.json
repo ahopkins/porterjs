@@ -1,7 +1,7 @@
 {
   "name": "porterjs",
   "version": "1.0.0",
-  "description": "Simplified JS framweork for rendering.",
+  "description": "Simplified JS framework for rendering.",
   "main": "./src/main.js",
   "directories": {
     "doc": "docs"

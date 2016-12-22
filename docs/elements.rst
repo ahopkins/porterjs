@@ -22,7 +22,7 @@ Elements
 --------
 
 ``<a></a>``
-++++++++++
++++++++++++
 
 By default, **all** ``<a></a>`` tags will be captured to send HTTP requests asynchronously. However, you can opt out of this behavior with:
 

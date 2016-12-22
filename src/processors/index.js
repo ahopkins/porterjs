@@ -1,4 +1,6 @@
 import {default as process_html} from './process_html'
+import {default as process_errors} from './process_errors'
+import {default as process_redirect} from './process_redirect'
 
 // export {process_success}
 
@@ -19,10 +21,30 @@ export class Processor {
     }
 
     prepare () {
-        this.html = this.response.json.html
+        if (this.response.json == null) {
+            // console.log('not JSON html parser')
+            this.html = this.response.responseText
+        } else{
+            this.html = this.response.json.html
+        }
+
+        this.errors = this.response.json.errors
+        this.redirect = this.response.json.redirect
+    }
+
+    run () {
+        if (this.response.status >= 200 && this.response.status < 400){ this.success() }
+        else { this.error() }
     }
 
     success () {
         process_html(this)
+        process_errors(this)
+        process_redirect(this)
+    }
+
+    error () {
+        console.log('TODO: abstract and allow for more user friendly error responses')
+        document.write(this.html)
     }
 }

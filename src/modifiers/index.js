@@ -19,12 +19,37 @@ export const startup = () => {
     }
 
 
-    Element.prototype.one = function() {
-      return this.querySelector.apply(this, arguments)
+    Element.prototype.one = function () { return this.querySelector.apply(this, arguments) }
+    Element.prototype.all = function () { return this.querySelectorAll.apply(this, arguments) }
+    Element.prototype.addClass = function (className) {
+        if (this.classList) {
+            this.classList.add(className)
+        } else {
+           this.className += ' ' + className
+        }
     }
-
-    Element.prototype.all = function() {
-      return this.querySelectorAll.apply(this, arguments)
+    Element.prototype.removeClass = function (className) {
+        if (this.classList) {
+            this.classList.remove(className)
+        } else {
+            this.className = this.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ')
+        }
     }
+    Element.prototype.toggleClass = function (className) {
+        if (this.classList) {
+           this.classList.toggle(className)
+        } else {
+            const classes = this.className.split(' ')
+            const existingIndex = classes.indexOf(className)
 
+            if (existingIndex >= 0) {
+                classes.splice(existingIndex, 1)
+            }
+            else {
+                classes.push(className)
+            }
+
+            this.className = classes.join(' ')
+        }
+    }
 }

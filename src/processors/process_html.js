@@ -11,7 +11,12 @@ export default function (processor) {
     
     if (type == "string") {
         const content = one("#content")
-        apply_html(content, processor.html)
+        if (content === null) {
+            console.error('ERROR: No place to insert html')
+            console.warn(processor.html)
+        } else {
+            apply_html(content, processor.html)
+        }
     } else if (type == "object") {
         if (Array.isArray(processor.html)) {
             for (let obj of processor.html) {

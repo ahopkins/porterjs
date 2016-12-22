@@ -3,24 +3,172 @@
 <head>
     <title>PorterJS Demo</title>
 
-    <link rel="stylesheet" type="text/css" href="/porterjs/demo/assets/porter.min.css">
+    <link rel="stylesheet" type="text/css" href="http://thebrewery/porter.css">
 
 </head>
 <body>
     <header class="navbar">
         <div class="hide-on-sm hide-on-md">
-            <a class="left logo" href="#">PorterJS</a>
+            <a class="left logo" href="#">PorterJS Feature Demo</a>
             <ul class="right nav herizontal">
-                <li><a href="http://porterjs.readthedocs.io/en/latest/" target="_blank">Docs</a></li>
+                <li><a href="/docs/_build/html/" target="_blank">Docs</a></li>
             </ul>
         </div>
         <div class="hide-on-lg hide-on-xl">
             <a class="left logo" href="#">PorterCSS</a>
             <a id="menu-toggler" href="#" class="right menu-toggle "></a>
             <ul class="nav vertical mobile">
-                <li><a href="http://porterjs.readthedocs.io/en/latest/" target="_blank">Docs</a></li>
+                <li><a href="/docs/_build/html/" target="_blank">Docs</a></li>
             </ul>
         </div>
+        <style>
+            body {color: rgba(107, 85, 67, 1); }
+            /*main::after {
+                content: '';
+                display: block;
+                position: fixed;
+                bottom: 0;
+                width:100vw;
+                left: 0;
+                height: 200px; // or anything you want the height to be
+                background: -webkit-linear-gradient( rgba(255, 255, 255, 0) 0%,rgba(255, 255, 255, 1) 100%);
+                background-image: -moz-linear-gradient( rgba(255, 255, 255, 0) 0%,rgba(255, 255, 255, 1) 100%);
+                background-image: -o-linear-gradient( rgba(255, 255, 255, 0) 0%,rgba(255, 255, 255, 1) 100%);
+                background-image: linear-gradient(rgba(255, 255, 255, 0) 0%,rgba(255, 255, 255, 1) 100%);
+                background-image: -ms-linear-gradient( rgba(255, 255, 255, 0) 0%,rgba(255, 255, 255, 1) 100%);
+                z-index: 1;
+            }
+            canvas {
+                position: fixed;
+                z-index: 2 !important;
+            }*/
+
+            .mug {
+              display: inline-block;
+              position: relative;
+              width: 150px;
+              height: 210px;
+              background-color: rgba(107, 85, 67, 1);
+              border-radius: 7.5px;
+            }
+            .mug .handle {
+              position: absolute;
+              top: 105px;
+              right: 0;
+            }
+            .mug .handle::before, .mug .handle::after {
+              content: '';
+              display: block;
+              position: absolute;
+              width: 50px;
+              height: 52.5px;
+            }
+            .mug .handle::before {
+              bottom: 0;
+              border-top: solid 25px rgba(107, 85, 67, 1);
+              border-right: solid 25px rgba(107, 85, 67, 1);
+              border-top-right-radius: 50px;
+            }
+            .mug .handle::after {
+              top: 0;
+              border-bottom: solid 25px rgba(107, 85, 67, 1);
+              border-right: solid 25px rgba(107, 85, 67, 1);
+              border-bottom-right-radius: 50px;
+            }
+            .mug .beer {
+              position: absolute;
+              left: 0;
+              right: 0;
+              bottom: 15px;
+              margin: auto;
+              height: 168px;
+              width: 120px;
+              border-bottom-left-radius: 5px;
+              border-bottom-right-radius: 5px;
+            }
+            .mug .beer .bubble {
+              position: absolute;
+              left: 0;
+              background-color: rgba(107, 85, 67, 1);
+              border-radius: 100%;
+            }
+            .mug .beer .bubble:nth-of-type(1) {
+              top: 20%;
+              height: 25px;
+              width: 25px;
+              animation: 600ms bubbler ease-in infinite;
+            }
+            .mug .beer .bubble:nth-of-type(2) {
+              top: 40%;
+              height: 12.5px;
+              width: 12.5px;
+              animation: 1200ms bubbler ease-in infinite;
+            }
+            .mug .beer .bubble:nth-of-type(3) {
+              top: 50%;
+              height: 17.85714px;
+              width: 17.85714px;
+              animation: 1020ms bubbler ease-in infinite;
+            }
+            .mug .beer .bubble:nth-of-type(4) {
+              top: 5%;
+              height: 22.72727px;
+              width: 22.72727px;
+              animation: 1380ms bubbler ease-in infinite;
+            }
+            .mug .beer .bubble:nth-of-type(5) {
+              top: 70%;
+              height: 10.41667px;
+              width: 10.41667px;
+              animation: 1560ms bubbler ease-in infinite;
+            }
+            .mug .beer .bubble:nth-of-type(6) {
+              top: 80%;
+              height: 22.72727px;
+              width: 22.72727px;
+              animation: 780ms bubbler ease-in infinite 480ms;
+            }
+
+            @keyframes bubbler {
+              from {
+                opacity: 1;
+                left: 0;
+              }
+              to {
+                opacity: 0;
+                left: 90%;
+              }
+            }
+
+
+            #nprogress {
+              pointer-events: none;
+              transform: rotate(-90deg);
+            }
+
+            #nprogress .bar {
+              background: rgba(0, 0, 0, 0.5);
+              position: absolute;
+              z-index: 1031;
+              top: -60px;
+              left: -110px;
+              width: 168px;
+              height: 120px;
+            }
+
+            /* Fancy blur effect */
+            .nprogress-custom-parent {
+              overflow: hidden;
+              position: relative;
+            }
+
+            .nprogress-custom-parent #nprogress .spinner,
+            .nprogress-custom-parent #nprogress .bar {
+              position: absolute;
+            }
+
+
+        </style>
     </header>
 
     <main class="container">
@@ -28,12 +176,47 @@
 
         <h1>Welcome to Porter JS</h1>
 
+        <div class="row">
+            <div class="sm-1 center-align">
+
+<div class="mug">
+  <div class="handle"></div>
+  <div class="beer nprogress-custom-parent"><div id="nprogress"><div class="bar" role="bar" style="transform: translate3d(-5%, 0px, 0px); transition: all 200ms ease;"><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div></div></div></div>
+</div>
+
+
+            </div>
+        </div>
+
         <section>
             <h2>Reserved Elements</h2>
             <ul>
                 <li><code>#breadcrumbs</code></li>
                 <li><code>#content</code></li>
             </ul>
+        </section>
+
+        <section>
+            <h2>Data binding</h2>
+            <caption>Two way binding of dataStore/model</caption>
+            <pre><code></code></pre>
+
+            <div class="row section">
+                <div class="sm-1-2 md-7-15 offset-md-1-15">
+                    <strong>HTML</strong>
+                    <pre><code>&lt;a onclick=&quot;p.stack.set('beer', 99)&quot;&gt;Set to 99&lt;/a&gt;
+&lt;input type=&quot;number&quot; data-bind=&quot;beer&quot;&gt;&lt;br&gt;
+How many bottles of beer? &lt;span data-model=&quot;beer&quot;&gt;&lt;/span&gt;</code></pre>
+                </div>
+                <div class="sm-1-2 md-7-15">
+                    <a href="#" class="btn exclude" onclick="p.stack.set('beer', 99)">Set to 99</a>
+                    <input type="number" data-bind="beer" data-model="beer"><br>
+                    How many bottles of beer? <span data-model="beer"></span><br>
+                    <template data-model="beer">
+                        {{beer}} bottles were selected.
+                    </template>
+                </div>
+            </div>
         </section>
 
         <section>
@@ -60,7 +243,7 @@
             <h3><code>{"html": ""}</code> or <code>{"html": []}</code> or <code>{"html": {}}</code></h3>
 
             <div class="row section">
-                <div class="sm-1-2 md-2-5 offset-md-1-12">
+                <div class="sm-1-2 md-7-15 offset-md-1-15">
                     <strong>HTML</strong>
                     <pre><code> &lt;div id="content"&gt;&lt;/div&gt;</code></pre>
 
@@ -70,15 +253,15 @@
         "html": "Hello, world."
     }
                     </code></pre>
-                    <a class="btn" href="/porterjs/demo/data/html-demo-1.json">Make request</a>
+                    <a class="btn" href="http://localhost:8080/demo/data/html-demo-1.json">Make request</a>
                 </div>
-                <div class="sm-1-2 md-2-5">
+                <div class="sm-1-2 md-7-15">
                     <div id="content"></div>
                 </div>
             </div>
 
             <div class="row section">
-                <div class="sm-1-2 md-2-5 offset-md-1-12">
+                <div class="sm-1-2 md-7-15 offset-md-1-15">
                     <strong>HTML</strong>
                     <pre><code>&lt;div&gt;
     &lt;strong&gt;Foo:&lt;/strong&gt; &lt;span id=&quot;foo&quot;&gt;&lt;/span&gt; 
@@ -92,9 +275,9 @@
         }
     }
                     </code></pre>
-                    <a class="btn" href="/porterjs/demo/data/html-demo-2.json">Make request</a>
+                    <a class="btn" href="http://localhost:8080/demo/data/html-demo-2.json">Make request</a>
                 </div>
-                <div class="sm-1-2 md-2-5">
+                <div class="sm-1-2 md-7-15">
                     <div>
                         <strong>Foo:</strong> <span id="foo"></span>
                     </div>
@@ -102,7 +285,7 @@
             </div>
 
             <div class="row section">
-                <div class="sm-1-2 md-2-5 offset-md-1-12">
+                <div class="sm-1-2 md-7-15 offset-md-1-15">
                     <strong>HTML</strong>
                     <pre><code>&lt;div&gt;
     &lt;strong&gt;Spam:&lt;/strong&gt; &lt;span id=&quot;spam&quot;&gt;&lt;/span&gt;
@@ -119,9 +302,9 @@
         ]
     }
                     </code></pre>
-                    <a class="btn" href="/porterjs/demo/data/html-demo-3.json">Make request</a>
+                    <a class="btn" href="http://localhost:8080/demo/data/html-demo-3.json">Make request</a>
                 </div>
-                <div class="sm-1-2 md-2-5">
+                <div class="sm-1-2 md-7-15">
                     <div>
                         <strong>Spam:</strong> <span id="spam"></span>
                     </div>
@@ -136,6 +319,11 @@
         </section>
     </main>
 
-    <script src="/porterjs/demo/assets/porter.js"></script>
+    <canvas id="bubble-canvas"></canvas>
+
+    <script src="/assets/porter.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script src="/demo/assets/bubbles.js"></script>
 </body>
 </html>

@@ -2,11 +2,11 @@ import {Cookie} from 'aurelia-cookie'
 import {Request} from '../requests'
 import {Processor} from '../processors'
 
-export default function (element, url, method, data, callback) {
+const c = function (element, url, method, data, callback) {
     element = element || null;
     url = url || false;
     method = method || false;
-    data = data || false;
+    data = data || {};
     callback = callback || false;
 
     let csrftoken = null
@@ -30,6 +30,7 @@ export default function (element, url, method, data, callback) {
             }
         }
     }
+
     // Check if we need to get a csrftoken
     if (["POST", "PUT", "PATCH", "DELETE"].indexOf(method) >= 0) {
 
@@ -37,12 +38,33 @@ export default function (element, url, method, data, callback) {
         // - Abstract away the token name
         csrftoken = Cookie.get('csrftoken')
     }
+    console.log(`csrftoken: ${csrftoken}`)
 
+    // If URL was not set ...
     if (!url) {
+        // If URL was not set, and there was no ELEMENT, then there is no way
+        // to know where to direct the page to, therefore raise and error
         if (element === null) {
             console.log('raise error')
         } else {
             url = element.getAttribute('data-url') || element.getAttribute('href') || element.getAttribute('action')
+        }
+
+        // If a URL still does not exist, check if maybe it is inside a form, and execute that
+        if (!url && element.closest('form') !== null) {
+            // If it is a form being triggered ... ERROR
+            if (element.nodeName == 'FORM') {
+                console.log('Error because no URL found on triggered, or form element')
+                return
+            }
+            return c(element.closest('form'), url, null, null, callback)
+        }
+    }
+
+    if (element.nodeName == 'FORM') {
+        const formData = new FormData(element)
+        for (let [key, value] of formData.entries()) {
+            data[key] = value
         }
     }
 
@@ -50,16 +72,29 @@ export default function (element, url, method, data, callback) {
     console.log('~~~   THE REQUEST   ~~~')
     console.log(`method: ${method}`)
     console.log(`url: ${url}`)
+    console.log(`data: ${data}`)
     console.log("==========/\\/\\==========")
 
     const request = new Request(url)
-    request.get().then((response) => {
+    // request.get().then((response) => {
+    //     // console.log(response)
+    //     const processor = new Processor(response)
+    //     processor.success()
+    // }).catch((error) => {
+    //     // console.log(error)
+    //     const processor = new Processor(response)
+    //     processor.success()
+    // })
+    request[method.toLowerCase()](data, csrftoken).then((response) => {
+        // console.log(response)
         const processor = new Processor(response)
-        processor.success()
+        processor.run()
     }).catch((error) => {
-        console.log(error)
+        // console.log(error)
         const processor = new Processor(response)
-        processor.success()
+        processor.error()
     })
 
 }
+
+export default c
