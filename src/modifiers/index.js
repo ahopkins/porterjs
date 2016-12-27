@@ -11,6 +11,17 @@ export const startup = () => {
             return this
         }
     })
+    Object.defineProperty(NodeList.prototype, "removeEventListener", {
+        value: function (event, callback, useCapture) {
+            useCapture = ( !! useCapture) | false
+            for (var i = 0; i < this.length; ++i) {
+                if (this[i] instanceof Node) {
+                    this[i].removeEventListener(event, callback, useCapture)
+                }
+            }
+            return this
+        }
+    })
 
     Object.prototype[Symbol.iterator] = function*() {
         for(let key of Object.keys(this)) {

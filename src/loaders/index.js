@@ -12,3 +12,9 @@ export function startup () {
 
     load_robust_porter.run()
 }
+export function load () {
+    load_links.run()
+    // load_binders.run()
+    // load_models.run()
+    load_events.run()    
+}

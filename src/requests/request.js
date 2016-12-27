@@ -33,7 +33,7 @@ export class Request {
     }
 
     get (data, _) {
-        this.data = data
+        if (data !== undefined) this.data = data
         const method = "GET"
         return this.send(method)
     }

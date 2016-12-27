@@ -91,7 +91,7 @@ const c = function (element, url, method, data, callback) {
         processor.run()
     }).catch((error) => {
         // console.log(error)
-        const processor = new Processor(response)
+        const processor = new Processor(error)
         processor.error()
     })
 
