@@ -1,6 +1,7 @@
 import {default as process_html} from './process_html'
 import {default as process_errors} from './process_errors'
 import {default as process_redirect} from './process_redirect'
+import {default as process_callbacks} from './process_callbacks'
 
 // export {process_success}
 
@@ -28,8 +29,9 @@ export class Processor {
             this.html = this.response.json.html
         }
 
-        this.errors = this.response.json.errors
-        this.redirect = this.response.json.redirect
+        this.callbacks = this.response.json.callbacks || []
+        this.errors = this.response.json.errors || []
+        this.redirect = this.response.json.redirect || null
     }
 
     run () {
@@ -39,6 +41,7 @@ export class Processor {
 
     success () {
         process_html(this)
+        process_callbacks(this)
         process_errors(this)
         process_redirect(this)
     }
