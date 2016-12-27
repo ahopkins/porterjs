@@ -18,4 +18,20 @@ export class DataStack {
         const label = `${key}StackChange`
         events.dispatch(label, value)
     }
+
+    push (key, value, callback) {
+        if (this.storage[key] == undefined) {
+            this.storage[key] = []
+        }
+        this.storage[key].push(value)
+        if (callback !== undefined) {
+            callback.apply()
+        }
+        const label = `${key}StackChange`
+        events.dispatch(label, value)
+    }
+
+    get (key) {
+        return this.storage[key]
+    }
 }

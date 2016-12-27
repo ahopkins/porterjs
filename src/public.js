@@ -32,14 +32,12 @@ export const ready = (fn) => {
 // }
 
 export const debounce = function(callback, wait, context = this) {
-    console.log(1)
   let timeout = null 
   let callbackArgs = null
   
   const later = () => callback.apply(context, callbackArgs)
   
   return function() {
-    console.log(2)
     callbackArgs = arguments
     clearTimeout(timeout)
     timeout = setTimeout(later, wait)

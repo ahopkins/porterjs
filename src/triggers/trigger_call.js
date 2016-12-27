@@ -1,6 +1,7 @@
 import {Cookie} from 'aurelia-cookie'
 import {Request} from '../requests'
 import {Processor} from '../processors'
+import {findAttribute} from '../utils'
 
 const c = function (element, url, method, data, callback) {
     element = element || null;
@@ -21,7 +22,8 @@ const c = function (element, url, method, data, callback) {
         if (element === null) {
             method = "GET"
         } else {
-            method = element.getAttribute('data-method') || element.getAttribute('method')
+            // method = element.getAttribute('data-method') || element.getAttribute('method')
+            method = findAttribute(element, 'data-method') || findAttribute(element, 'method')
             if (method !== null) {
                 method = method.toUpperCase()
             }
@@ -47,7 +49,8 @@ const c = function (element, url, method, data, callback) {
         if (element === null) {
             console.log('raise error')
         } else {
-            url = element.getAttribute('data-url') || element.getAttribute('href') || element.getAttribute('action')
+            // url = element.getAttribute('data-url') || element.getAttribute('href') || element.getAttribute('action')
+            url = findAttribute(element, 'data-url') || findAttribute(element, 'href') || findAttribute(element, 'action')
         }
 
         // If a URL still does not exist, check if maybe it is inside a form, and execute that

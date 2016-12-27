@@ -2,6 +2,7 @@ export class Response {
     constructor (request) {
         this.request = request
         this.responseText = request.responseText
+        // console.log(this.responseText)
         try {
             this.json = JSON.parse(this.responseText)
         } catch (e) {
