@@ -4,7 +4,7 @@ export default function (processor) {
     const type = typeof processor.callbacks
     if (type == "object") {
         processor.callbacks.forEach(function (callback) {
-            console.log(callback)
+            // console.log(callback)
             const chain = callback.function.split('.'),
                   args = callback.arguments || {}
             let fn
@@ -17,7 +17,7 @@ export default function (processor) {
             try {
                 fn(...args)
             } catch (error) {
-                console.error(error)
+                console.warn(error)
             }
         })
     }

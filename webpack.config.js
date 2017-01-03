@@ -16,24 +16,24 @@ module.exports = {
             loader: 'babel-loader'
         }]
     },
-    // plugins: [
-    //     new webpack.optimize.UglifyJsPlugin({
-    //         minimize: false,
-    //         drop_console: true,
-    //         mangle: {
-    //             except: ['$','require','exports'],
-    //             toplevel: true
-    //         }
-    //     //     // compress: {
-    //     //     //     sequences: true,
-    //     //     //     dead_code: true,
-    //     //     //     conditionals: true,
-    //     //     //     booleans: true,
-    //     //     //     unused: true,
-    //     //     //     if_return: true,
-    //     //     //     join_vars: true,
-    //     //     //     drop_console: true
-    //     //     // }
-    //     })
-    // ]
+    plugins: [
+        // new webpack.optimize.UglifyJsPlugin({
+        //     minimize: false,
+        //     drop_console: true,
+        //     mangle: {
+        //         except: ['$','require','exports'],
+        //         toplevel: true
+        //     },
+        //     compress: {
+        //         sequences: true,
+        //         dead_code: true,
+        //         conditionals: true,
+        //         booleans: true,
+        //         unused: true,
+        //         if_return: true,
+        //         join_vars: true,
+        //         drop_console: true
+        //     }
+        // })
+    ]
 };

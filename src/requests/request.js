@@ -57,6 +57,7 @@ export class Request {
             this.req.setRequestHeader("X-CSRFToken", this.csrftoken);
         }
         this.req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        this.req.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
         this.req.send(params)
         return new Promise((resolve, reject) => {
             this.resolve = resolve

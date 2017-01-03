@@ -50,7 +50,8 @@ const c = function (element, url, method, data, callback) {
             console.log('raise error')
         } else {
             // url = element.getAttribute('data-url') || element.getAttribute('href') || element.getAttribute('action')
-            url = findAttribute(element, 'data-url') || findAttribute(element, 'href') || findAttribute(element, 'action')
+            url = findAttribute(element, 'data-url') || findAttribute(element, 'href') || element.getAttribute('action')
+            // console.log(url)
         }
 
         // If a URL still does not exist, check if maybe it is inside a form, and execute that
@@ -76,6 +77,7 @@ const c = function (element, url, method, data, callback) {
     console.log(`method: ${method}`)
     console.log(`url: ${url}`)
     console.log(`data: ${data}`)
+    console.log(data)
     console.log("==========/\\/\\==========")
 
     const request = new Request(url)

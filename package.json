@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --hot"
+    "dev": "webpack-dev-server --hot --port=8181",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
