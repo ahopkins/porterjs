@@ -1,4 +1,5 @@
 import {Response} from './response'
+import {stack} from '../public'
 
 export class Request {
     constructor (url) {
@@ -52,10 +53,20 @@ export class Request {
             function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(this.data[k]) }.bind(this)
         ).join('&')
 
-        this.req.open(method, this.url, true)
+        const globalRequestBefore = stack.get('globalRequestBefore')
+        if (globalRequestBefore !== undefined && globalRequestBefore !== null) {
+            globalRequestBefore()
+        }
+
         if (['OPTIONS', 'HEAD', 'GET'].includes(method) == false) {
             this.req.setRequestHeader("X-CSRFToken", this.csrftoken);
+        } else if (params) {
+            console.log(params)
+            this.url = `${this.url}?${params}`
+
         }
+        console.log(this.url)
+        this.req.open(method, this.url, true)
         this.req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
         this.req.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
         this.req.send(params)

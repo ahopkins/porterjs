@@ -2,6 +2,7 @@ import {default as process_html} from './process_html'
 import {default as process_errors} from './process_errors'
 import {default as process_redirect} from './process_redirect'
 import {default as process_callbacks} from './process_callbacks'
+import {load} from '../loaders'
 
 // export {process_success}
 
@@ -44,6 +45,8 @@ export class Processor {
         process_callbacks(this)
         process_errors(this)
         process_redirect(this)
+
+        load()
     }
 
     error () {

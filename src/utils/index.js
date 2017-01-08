@@ -1,3 +1,5 @@
+import {one} from '../public'
+
 export const findAttribute = (element, attribute) => {
     // let a = element.getAttribute(attribute)
     // if (a !== undefined) return a
@@ -10,4 +12,13 @@ export const findAttribute = (element, attribute) => {
         element = element.parentNode
     }
     return null
+}
+
+export const getTarget = (e) => {
+    const attr = findAttribute(e.srcElement, 'data-target')
+    if (attr == 'self') {
+        return e.srcElement
+    } else {
+        return one(`#${attr}`)
+    }
 }
