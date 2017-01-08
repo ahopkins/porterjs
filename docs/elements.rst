@@ -6,7 +6,7 @@ PorterJS tries to do all the dirty work for you in trying to figure out what you
 Attributes
 ----------
 
-``data-method`` 
+(1) ``data-method`` 
 +++++++++++++++
 
 **Purpose**: To change the HTTP request method for any element that triggers a call.
