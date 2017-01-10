@@ -48,6 +48,7 @@ export class Request {
 
     send (method) {
         method = method || "GET"
+        let csrftoken
 
         const params = typeof this.data == 'string' ? this.data : Object.keys(this.data).map(
             function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(this.data[k]) }.bind(this)
@@ -59,16 +60,16 @@ export class Request {
         }
 
         if (['OPTIONS', 'HEAD', 'GET'].includes(method) == false) {
-            this.req.setRequestHeader("X-CSRFToken", this.csrftoken);
+            csrftoken = this.csrftoken
         } else if (params) {
-            console.log(params)
             this.url = `${this.url}?${params}`
-
         }
-        console.log(this.url)
         this.req.open(method, this.url, true)
         this.req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
         this.req.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+        if (csrftoken !== null) {
+            this.req.setRequestHeader("X-CSRFToken", csrftoken);
+        }
         this.req.send(params)
         return new Promise((resolve, reject) => {
             this.resolve = resolve
