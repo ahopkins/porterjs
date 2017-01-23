@@ -33,9 +33,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "expose-loader": "^0.7.1",
     "webpack": "^1.13.2",
-    "webpack-obfuscator": "^0.7.3"
-  },
-  "dependencies": {
+    "webpack-obfuscator": "^0.7.3",
     "babel-polyfill": "^6.16.0",
     "document-ready-promise": "^3.0.1"
   }
