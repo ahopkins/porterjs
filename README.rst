@@ -7,7 +7,7 @@ You can get up and running by installing via ``npm``.
 
 .. code-block:: bash
 
-    npm install porter
+    npm install porterjs-framework
 
 But, the only file you need is the resource:
 

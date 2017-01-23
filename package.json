@@ -1,5 +1,5 @@
 {
-  "name": "PorterJS",
+  "name": "porterjs-framework",
   "version": "1.0.0",
   "description": "Simplified (yet powerful) JS framework.",
   "main": "./src/main.js",
