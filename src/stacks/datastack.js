@@ -31,7 +31,11 @@ export class DataStack {
         events.dispatch(label, value)
     }
 
-    get (key) {
+    get (key, default) {
+        default = default || null
+        if (this.storage[key] == undefined) {
+            return default
+        }
         return this.storage[key]
     }
 }

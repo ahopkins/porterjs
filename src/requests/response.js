@@ -1,10 +1,10 @@
 import {stack} from '../public'
 
 export class Response {
-    constructor (request) {
+    constructor (request, url) {
         this.request = request
+        this.url = url
         this.responseText = request.responseText
-        // console.log(this.responseText)
         try {
             this.json = JSON.parse(this.responseText)
         } catch (e) {

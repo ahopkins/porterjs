@@ -8,11 +8,11 @@ export class Request {
         this.data = {}
         this.csrftoken = null
 
-        this.resolve = () => { console.log('NOT IMPLEMENTED') }
-        this.reject = () => { console.log('NOT IMPLEMENTED') }
+        this.resolve = () => { console.warn('NOT IMPLEMENTED') }
+        this.reject = () => { console.warn('NOT IMPLEMENTED') }
 
         this.req.onload = () => {
-            this.response = new Response(this.req)
+            this.response = new Response(this.req, this.url)
             if (this.req.status >= 200 && this.req.status < 400) {
                 this.resolve(this.response)
             } else {

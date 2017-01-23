@@ -19,18 +19,6 @@ export const ready = (fn) => {
   }
 }
 
-// export const debounce = (fn, delay) => {
-//   let timer = null
-//   return () => {
-//     let context = this,
-//         args = arguments
-//     clearTimeout(timer)
-//     timer = setTimeout(() => {
-//       fn.apply(context, args)
-//     }, delay)
-//   }
-// }
-
 export const debounce = function(callback, wait, context = this) {
   let timeout = null 
   let callbackArgs = null

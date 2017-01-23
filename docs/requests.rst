@@ -8,21 +8,45 @@ PorterJS expects a response from the browser to be in JSON format, and can accom
 ``breadcrumbs``
 +++++++++++++++
 
+*COMING SOON*
+
+
+
 ``callbacks``
 +++++++++++++
+
+*   **Purpose**: To trigger execution of a callback function
+*   **Value(s)**: Should be an``{Object}`` in the following form
+    
+.. code-block:: javascript
+
+    {
+        'function': 'name_of_some_function',
+        'arguments': [
+            'list',
+            'of',
+            'some','
+            'arguments'
+        ]
+    }
+
 
 ``errors``
 ++++++++++
 
+*COMING SOON*
+
+
+
 ``html``
 ++++++++
 
-**Purpose**: To push HTML code to elements in the DOM
-**Value(s)**: Can be a ``"string"``, ``{Object}``, or ``[Array]``
+*   **Purpose**: To push HTML code to elements in the DOM
+*   **Value(s)**: Can be a ``"string"``, ``{Object}``, or ``[Array]``
 
 1. If ``"string"``, then the contents of that string will be inserted into an element with an ``id="content"``.
-2. If ``{Object}``, then each element with an id that equals ``key`` will have the corresponding ``value`` inserted
-3. If ``[Array]``, then each item should itself be an ``{Object}`` with two keys: ``id`` and ``content``
+2. If ``{Object}``, then each element with an id that equals ``key`` will have the corresponding ``value`` inserted.
+3. If ``[Array]``, then each item should itself be an ``{Object}`` with two keys: ``id`` and ``content``.
   
 .. code-block:: javascript
     
@@ -51,8 +75,18 @@ PorterJS expects a response from the browser to be in JSON format, and can accom
 ``notifications``
 +++++++++++++++++
 
+*COMING SOON*
+
+
+
 ``redirect``
 ++++++++++++
 
+*   **Purpose**: To trigger a reload or change in the ``window.location``
+*   **Value(s)**: A string being the intended ``location``.
+
+
 ``title``
 +++++++++
+
+*COMING SOON*

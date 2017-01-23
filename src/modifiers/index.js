@@ -1,4 +1,4 @@
-
+import {trigger_call} from '../public'
 export const startup = () => {
     Object.defineProperty(NodeList.prototype, "addEventListener", {
         value: function (event, callback, useCapture) {
@@ -63,4 +63,13 @@ export const startup = () => {
             this.className = classes.join(' ')
         }
     }
+
+    // TODO:
+    // - Make this toggleable setting; see also processors/process_html.js
+    window.addEventListener('popstate', function(e) {
+        if( !!window.history.state ){
+            var url = window.history.state.url;
+            trigger_call(null, url)
+        }
+    })
 }
