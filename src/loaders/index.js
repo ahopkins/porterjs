@@ -9,7 +9,7 @@ import * as load_robust_porter from './load_robust_porter'
 import {events} from '../public'
 
 export function load () {
-    // console.log('running load')
+    console.log('running load')
     load_links.run()
     load_inputs.run()
     load_binders.run()

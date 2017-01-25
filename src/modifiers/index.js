@@ -1,12 +1,14 @@
 import {trigger_call, settings} from '../public'
+import {NodeListener} from '../helpers/listeners'
 
 export const startup = () => {
     Object.defineProperty(NodeList.prototype, "addEventListener", {
         value: function (event, callback, useCapture) {
             useCapture = ( !! useCapture) | false
             for (var i = 0; i < this.length; ++i) {
-                if (this[i] instanceof Node) {
-                    this[i].addEventListener(event, callback, useCapture)
+                let node = this[i]
+                if (node instanceof Node) {
+                    new NodeListener(node, event, callback, useCapture)
                 }
             }
             return this
@@ -16,8 +18,9 @@ export const startup = () => {
         value: function (event, callback, useCapture) {
             useCapture = ( !! useCapture) | false
             for (var i = 0; i < this.length; ++i) {
-                if (this[i] instanceof Node) {
-                    this[i].removeEventListener(event, callback, useCapture)
+                let node = this[i]
+                if (node instanceof Node) {
+                    node.removeEventListener(event, callback, useCapture)
                 }
             }
             return this
