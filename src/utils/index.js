@@ -23,3 +23,24 @@ export const getTarget = (e) => {
         return one(`#${attr}`)
     }
 }
+
+export const ready = (fn) => {
+  if (document.readyState != 'loading') {
+    fn()
+  } else {
+    document.addEventListener('DOMContentLoaded', fn)
+  }
+}
+
+export const debounce = function(callback, wait, context = this) {
+  let timeout = null 
+  let callbackArgs = null
+  
+  const later = () => callback.apply(context, callbackArgs)
+  
+  return function() {
+    callbackArgs = arguments
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
+}

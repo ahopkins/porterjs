@@ -1,4 +1,4 @@
-import {one} from '../public'
+import {one, settings} from '../public'
 
 const apply_html = (element, html, url) => {
     if (element !== undefined && element !== null) {
@@ -7,7 +7,7 @@ const apply_html = (element, html, url) => {
 
     // TODO:
     // - Make this toggleable setting; see also modifiers/index.js
-    if (element.id == 'content') {
+    if (settings.pushPath && element.id == settings.pushPathId) {
         window.history.pushState({
             url: url
         }, "", url);
@@ -18,7 +18,7 @@ export default function (processor) {
     const type = typeof processor.html
     
     if (type == "string") {
-        const content = one("#content")
+        const content = one(`#${settings.pushPathId}`)
         if (content === null) {
             console.error('ERROR: No place to insert html')
             console.warn(processor.html)
