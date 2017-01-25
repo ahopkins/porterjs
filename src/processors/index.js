@@ -10,16 +10,20 @@ import {one} from '../public'
 
 export class Processor {
 
-    constructor (response) {
-        console.log("==========\\/\\/==========")
-        console.log('~~~   THE RESPONSE   ~~~')
-        console.log(`status: ${response.status}`)
-        console.log(`json: ${response.json}`)
-        console.log(response.json)
-        console.log("==========/\\/\\==========")
-        
+    constructor (response, prepare) {
         this.response = response
-        this.prepare()
+        prepare = prepare || true
+
+        if (prepare) {
+            console.log("==========\\/\\/==========")
+            console.log('~~~   THE RESPONSE   ~~~')
+            console.log(`status: ${response.status}`)
+            console.log(`json: ${response.json}`)
+            console.log(response.json)
+            console.log("==========/\\/\\==========")
+            
+            this.prepare()
+        }
     }
 
     prepare () {
@@ -51,6 +55,7 @@ export class Processor {
 
     error () {
         console.log('TODO: abstract and allow for more user friendly error responses')
+        console.log(this.response)
         document.write(this.html)
     }
 }

@@ -18,6 +18,7 @@ export default function (processor) {
             }
         }
     }
+    console.log(processor)
     // TODO:
     // - Add support for arrays (publish somewhere generic place, maybe just console.log)
 }

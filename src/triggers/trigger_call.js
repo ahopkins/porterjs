@@ -95,12 +95,12 @@ const c = function (element, url, method, data, callback) {
     //     processor.success()
     // })
     request[method.toLowerCase()](data, csrftoken).then((response) => {
-        // console.log(response)
+        console.log(response)
         const processor = new Processor(response)
         processor.run()
     }).catch((error) => {
-        // console.log(error)
-        const processor = new Processor(error)
+        console.log(error)
+        const processor = new Processor(error, false)
         processor.error()
     })
 

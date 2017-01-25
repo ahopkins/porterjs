@@ -1,3 +1,4 @@
+import {default as process_callbacks} from './processors/process_callbacks'
 import {trigger_call} from './triggers'
 import {Dispatcher} from './helpers'
 import {DataStack} from './stacks'
@@ -9,7 +10,7 @@ export const one = document.querySelector.bind(document)
 export const all = document.querySelectorAll.bind(document)
 export const events = new Dispatcher()
 export const stack = new DataStack()
-export { trigger_call, Request, load, ready, debounce }
+export { process_callbacks, trigger_call, Request, load, ready, debounce }
 
 export const settings = {
   pushPath: true,
