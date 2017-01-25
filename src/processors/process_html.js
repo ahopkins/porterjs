@@ -1,16 +1,16 @@
-import {one, settings} from '../public'
+import {one, settings, events} from '../public'
 
 const apply_html = (element, html, url) => {
     if (element !== undefined && element !== null) {
         element.innerHTML = html
     }
 
-    // TODO:
-    // - Make this toggleable setting; see also modifiers/index.js
     if (settings.pushPath && element.id == settings.pushPathId) {
         window.history.pushState({
             url: url
         }, "", url);
+
+        events.dispatch('pushPath')
     }
 }
 
