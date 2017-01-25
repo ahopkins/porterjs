@@ -46,6 +46,13 @@ export class Request {
         return this.send(method)
     }
 
+    patch (data, csrftoken) {
+        this.data = data
+        this.csrftoken = csrftoken
+        const method = "PATCH"
+        return this.send(method)
+    }
+
     send (method) {
         method = method || "GET"
         let csrftoken

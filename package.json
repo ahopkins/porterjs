@@ -1,6 +1,6 @@
 {
   "name": "porterjs-framework",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simplified (yet powerful) JS framework.",
   "main": "./src/main.js",
   "directories": {
@@ -15,6 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/ahopkins/porterjs.git"
   },
+  "readme": "README.rst",
   "keywords": [
     "JS",
     "framework"

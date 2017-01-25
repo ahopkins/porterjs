@@ -72,6 +72,10 @@ const c = function (element, url, method, data, callback) {
         }
     }
 
+    if (findAttribute(element, 'data-data') != null) {
+        data = findAttribute(element, 'data-data');
+    }
+
     console.log("==========\\/\\/==========")
     console.log('~~~   THE REQUEST   ~~~')
     console.log(`method: ${method}`)
