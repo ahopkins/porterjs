@@ -33,6 +33,14 @@ export const startup = () => {
         } 
     }
 
+    Node.prototype.remove = function () {
+        // TODO:
+        // - Add to documentation
+        const element = this,
+              parent = this.parentNode
+        parentNode.removeChild(element)
+    }
+
 
     Element.prototype.one = function () { return this.querySelector.apply(this, arguments) }
     Element.prototype.all = function () { return this.querySelectorAll.apply(this, arguments) }
