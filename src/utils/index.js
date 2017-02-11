@@ -1,4 +1,9 @@
 import {one} from '../public'
+import * as loaders from '../loaders'
+
+export const startup = (config) => {
+  loaders.startup()
+}
 
 export const findAttribute = (element, attribute) => {
     // let a = element.getAttribute(attribute)
@@ -24,7 +29,7 @@ export const getTarget = (e) => {
     }
 }
 
-export const ready = (fn) => {
+export const ready = function (fn) {
   if (document.readyState != 'loading') {
     fn()
   } else {
@@ -32,7 +37,7 @@ export const ready = (fn) => {
   }
 }
 
-export const debounce = function(callback, wait, context = this) {
+export const debounce = function (callback, wait, context = this) {
   let timeout = null 
   let callbackArgs = null
   
@@ -44,3 +49,4 @@ export const debounce = function(callback, wait, context = this) {
     timeout = setTimeout(later, wait)
   }
 }
+

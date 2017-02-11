@@ -26,6 +26,18 @@ export const startup = () => {
             return this
         }
     })
+    // TODO:
+    // - Document addition of innerHTML to prototype
+    Object.defineProperty(NodeList.prototype, "innerHTML", {
+        set: function (value) {
+            for (var i = 0; i < this.length; ++i) {
+                let node = this[i]
+                if (node instanceof Node) {
+                    node.innerHTML = value
+                }
+            }
+        }
+    })
 
     Object.prototype[Symbol.iterator] = function*() {
         for(let key of Object.keys(this)) {

@@ -1,26 +1,39 @@
-import {one, all} from '../public'
+import {one, all, router} from '../public'
 import {trigger_call} from '../triggers'
 import {findAttribute} from '../utils'
+import {CONFIG} from '../config'
 
 const togglerMethod = (e) => {
     e.preventDefault()
     e.stopPropagation()
 
-    let classes = findAttribute(e.srcElement, 'data-class')
-    console.log(classes)
+    let classes = findAttribute(e.srcElement, 'data-class').split(' ')
+    // console.log(classes)
     let target = one(findAttribute(e.srcElement, 'href'))
     if (target == null) {
-        target = one("#"+findAttribute(e.srcElement, 'data-target'))
+        const raw = findAttribute(e.srcElement, 'data-target')
+        if (raw == 'self') {
+            target = e.srcElement
+        } else {
+            target = one("#"+raw)
+        }
     }
-    target.toggleClass(classes)
+    for (let cls of classes) {
+        target.toggleClass(cls)
+    }
 }
 
 const ajaxClick = (e) => {
-    console.log('ajaxClick')
     e.preventDefault()
     e.stopPropagation()
 
-    trigger_call(e.target)
+    // TODO:
+    // - Document addition of client side rendering
+    if (CONFIG.render == 'server') {
+        trigger_call(e.target)
+    } else {
+        router.trigger(e)
+    }
 }
 
 export const run = () => {
