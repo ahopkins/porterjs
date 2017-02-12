@@ -38,6 +38,30 @@ export const startup = () => {
             }
         }
     })
+    // TODO:
+    // - Document addition of removeClass to prototype
+    Object.defineProperty(NodeList.prototype, "removeClass", {
+        value: function (value) {
+            for (var i = 0; i < this.length; ++i) {
+                let node = this[i]
+                if (node instanceof Node) {
+                    node.removeClass(value)
+                }
+            }
+        }
+    })
+    // TODO:
+    // - Document addition of addClass to prototype
+    Object.defineProperty(NodeList.prototype, "addClass", {
+        value: function (value) {
+            for (var i = 0; i < this.length; ++i) {
+                let node = this[i]
+                if (node instanceof Node) {
+                    node.addClass(value)
+                }
+            }
+        }
+    })
 
     Object.prototype[Symbol.iterator] = function*() {
         for(let key of Object.keys(this)) {
@@ -58,10 +82,13 @@ export const startup = () => {
     Element.prototype.all = function () { return this.querySelectorAll.apply(this, arguments) }
     Element.prototype.addClass = function (className) {
         if (this.classList) {
-            this.classList.add(className)
+            for (let cls in className.split(' ')) {
+                this.classList.add(className)
+            }
         } else {
            this.className += ' ' + className
         }
+        return this
     }
     Element.prototype.removeClass = function (className) {
         if (this.classList) {
@@ -69,6 +96,7 @@ export const startup = () => {
         } else {
             this.className = this.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ')
         }
+        return this
     }
     Element.prototype.toggleClass = function (className) {
         if (this.classList) {

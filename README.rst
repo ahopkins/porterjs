@@ -21,4 +21,4 @@ This project is currently in active development. Please feel free to join as a t
 
 .. _demo: http://porter.js.org
 .. _documentation: http://porterjs.readthedocs.io/en/latest/
-.. _jsdelivr: http://www.jsdelivr.com/projects/porterjshaxke
+.. _jsdelivr: http://www.jsdelivr.com/projects/porterjs
