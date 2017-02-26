@@ -1,4 +1,4 @@
-import {events} from '../public'
+import {events, getProperty, setProperty} from '../public'
 
 export class DataStack {
     constructor () {
@@ -37,5 +37,23 @@ export class DataStack {
             return def
         }
         return this.storage[key]
+    }
+
+    // TODO:
+    // - Add to documentation
+    keys () {
+        return Object.keys(this.storage)
+    }
+
+    // TODO:
+    // - Add to documentation
+    update (key, property, value, callback) {
+        let obj = this.get(key)
+        obj.setProperty(property, value)
+        if (callback !== undefined) {
+            callback.apply()
+        }
+        const label = `${key}StackChange`
+        events.dispatch(label, value)
     }
 }

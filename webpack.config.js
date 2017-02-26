@@ -1,19 +1,24 @@
 var webpack = require("webpack");
 
 module.exports = {
-    entry: ['babel-polyfill', './src/main.js'],
+    entry: [__dirname + '/node_modules/babel-polyfill', __dirname + '/src/main.js'],
     output: {
         library: 'Porter',
-        path: './bin',
+        path: __dirname + '/bin',
         publicPath: "/assets/",
         filename: 'porter.min.js'
     },
-    devServer: { inline: true },
+    devServer: { 
+        port: 8181,
+        hot: true,
+        contentBase: __dirname,
+        inline: true 
+    },
     module: {
         loaders: [{
             test: /\.js$/,
             exclude: /node_modules/,
-            loader: 'babel-loader'
+            loader: __dirname + '/node_modules/babel-loader'
         }]
     },
     plugins: [

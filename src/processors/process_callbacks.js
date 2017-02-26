@@ -4,7 +4,6 @@ export default function (processor) {
     const type = typeof processor.callbacks
     if (type == "object") {
         processor.callbacks.forEach(function (callback) {
-            // console.log(callback)
             const chain = callback.function.split('.'),
                   args = callback.arguments || {}
             let fn

@@ -15,6 +15,7 @@ import {events, settings} from '../public'
 export class Router {
     constructor () {
         this.routes = []
+        this.namedRoutes = {}
         this.current = null
     }
 
@@ -47,25 +48,47 @@ export class Router {
             console.warn(`No route found matching: ${path}`)
         } else {
             this.current = route
-            if (route.history) {
+            this.execute()
+        }
+    }
+
+    goto (name) {
+        const route = this.namedRoutes[name]
+
+        if (route !== undefined) {
+            this.current = route
+            this.execute()
+        }
+    }
+
+    execute (e) {
+        if (this.current === null) {
+            console.error("No current route set. Cannot execute.")
+        } else {
+            if (this.current.history) {
                 if (settings.pushPath) {
                     // console.log(route)
                     window.history.pushState({
-                        url: path
-                    }, "", path);
+                        url: this.current.path
+                    }, "", this.current.path);
 
                     events.dispatch('pushPath')
                 }
             }
-            route.trigger(e)
+            this.current.trigger(e)
         }
     }
 
-    add (path, callback, history) {
+    add (path, callback, name, history) {
+        name = name || null
         history = history || false
         // console.log(`history: ${history}`)
 
         const route = new Route(path, callback, history)
         this.routes.push(route)
+
+        if (name !== null) {
+            this.namedRoutes[name] = route
+        }
     }
 }

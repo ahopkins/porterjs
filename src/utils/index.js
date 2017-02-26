@@ -5,7 +5,7 @@ export const startup = (config) => {
   loaders.startup()
 }
 
-export const findAttribute = (element, attribute) => {
+export function findAttribute (element, attribute) {
     // let a = element.getAttribute(attribute)
     // if (a !== undefined) return a
     if (element != null) {
@@ -20,7 +20,7 @@ export const findAttribute = (element, attribute) => {
     return null
 }
 
-export const getTarget = (e) => {
+export function getTarget (e) {
     const attr = findAttribute(e.srcElement, 'data-target')
     if (attr == 'self') {
         return e.srcElement
@@ -29,7 +29,7 @@ export const getTarget = (e) => {
     }
 }
 
-export const ready = function (fn) {
+export function ready (fn) {
   if (document.readyState != 'loading') {
     fn()
   } else {
@@ -37,7 +37,7 @@ export const ready = function (fn) {
   }
 }
 
-export const debounce = function (callback, wait, context = this) {
+export function debounce (callback, wait, context = this) {
   let timeout = null 
   let callbackArgs = null
   
@@ -50,3 +50,15 @@ export const debounce = function (callback, wait, context = this) {
   }
 }
 
+export function* range(count, start) {
+    start = start || 0
+    for (let i=0; i<count; i++) {
+        yield start + delta
+    }
+}
+
+export function randomCharacters (num) {
+    return new Array(num).join().replace(/(.|$)/g, function () {
+        return ((Math.random() * 36) | 0).toString(36)
+    });
+}
