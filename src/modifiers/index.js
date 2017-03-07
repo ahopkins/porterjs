@@ -12,11 +12,12 @@ export const startup = () => {
             const arr = desc.split('.')
             const last = arr.pop()
             let obj = this
-            while (arr.length && (obj = obj[arr.shift()]))
+            if (arr.length > 0) {
+                while (arr.length && (obj = obj[arr.shift()])) {}
+            }
             obj[last] = value
         }
     })
-
 
     Object.prototype[Symbol.iterator] = function*() {
         for(let key of Object.keys(this)) {
