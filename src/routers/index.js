@@ -1,4 +1,4 @@
-//             var foo = {
+// var foo = {
 //   [Symbol.iterator]: () => ({
 //     items: ['p', 'o', 'n', 'y', 'f', 'o', 'o'],
 //     next: function next () {

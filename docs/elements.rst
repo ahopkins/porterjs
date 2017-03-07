@@ -31,6 +31,17 @@ See also ``.toggler`` below.
 
     <a href="#" data-class="classToBeToggled" class="toggler" data-target="someId">toggle link</a>
 
+``data-hash``
+++++++++++++++
+
+*   **Purpose**: To change the location hash on click.
+*   **Value**: The hash to be assigned to the location.
+*   **Example**:
+
+.. code-block:: html
+
+    <a data-hash="#go/to/here">Visit here</a>
+
 ``data-method``
 +++++++++++++++
 
@@ -92,6 +103,7 @@ See also ``.toggler`` below.
     <form id="someFormId">
         <input data-target="someFormId">
     </form>
+
 
 
 ``data-url``
@@ -167,6 +179,7 @@ In addition, you can create a "fake" link by setting ``[data-url]`` on any eleme
 
 ...
 
+*You can overide the default action by adding one of the following classes: ``ignore-self``, ``exclude``, or ``ignore-toggle``.*
 
 ``.modal-open``
 +++++++++++++++

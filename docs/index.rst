@@ -15,6 +15,12 @@ Contents:
    public
    elements
    requests
+   loaders
+   misc
+   .. events
+   .. config
+   .. server-side rendering
+   .. client-side rendering
 
 
 Indices and tables

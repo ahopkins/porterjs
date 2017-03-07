@@ -18,9 +18,7 @@ const togglerMethod = (e) => {
         }
     }
 
-    // TODO:
-    // - Add exception class to documentation
-    if (e.srcElement.hasClass('ignore-toggle')) {
+    if (e.srcElement.hasClass('ignore-toggle') || e.srcElement.hasClass('ignore-self') || e.srcElement.hasClass('exclude')) {
         return false
     }
 
@@ -35,8 +33,6 @@ const ajaxClick = (e) => {
     e.preventDefault()
     e.stopPropagation()
 
-    // TODO:
-    // - Document addition of client side rendering
     if (CONFIG.render == 'server') {
         trigger_call(e.target)
     } else {
@@ -62,8 +58,6 @@ export const run = () => {
     const togglers = all(".toggler")
     togglers.removeEventListener("click", togglerMethod).addEventListener("click", togglerMethod)
 
-    // TODO:
-    // - Document addition of data-hash clicks
     const hashes = all("[data-hash]")
     hashes.removeEventListener("click", changeHash).addEventListener("click", changeHash)
 }

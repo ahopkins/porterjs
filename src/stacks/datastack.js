@@ -39,8 +39,6 @@ export class DataStack {
         return this.storage[key]
     }
 
-    // TODO:
-    // - Add to documentation
     keys () {
         return Object.keys(this.storage)
     }
@@ -49,6 +47,8 @@ export class DataStack {
     // - Add to documentation
     update (key, property, value, callback) {
         let obj = this.get(key)
+        // TODO:
+        // - Raise error if the object does not exist.
         obj.setProperty(property, value)
         if (callback !== undefined) {
             callback.apply()

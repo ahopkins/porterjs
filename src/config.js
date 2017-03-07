@@ -1,5 +1,6 @@
 const defaults = {
-    render: 'server'
+    render: 'server',
+    csrftoken: 'csrftoken'
 }
 // TODO:
 // - Document addition of PorterConfig

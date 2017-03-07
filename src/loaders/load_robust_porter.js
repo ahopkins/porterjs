@@ -2,18 +2,22 @@ import {one, all} from '../public'
 import {trigger_call} from '../triggers'
 
 export const run = () => {
-    if (pModal !== undefined) {
-        const links = all(".modal-open")
-        
-        links.addEventListener("click", (e) => {
-            e.preventDefault()
-            e.stopPropagation()
+    try {
+        if (pModal !== undefined) {
+            const links = all(".modal-open")
+            
+            links.addEventListener("click", (e) => {
+                e.preventDefault()
+                e.stopPropagation()
 
-            const id = e.target.getAttribute('href')
+                const id = e.target.getAttribute('href')
 
-            const modal = new pModal(id)
-            modal.open()
-        })
+                const modal = new pModal(id)
+                modal.open()
+            })
+        }
+    } catch (e) {
+        return
     }
 
 }

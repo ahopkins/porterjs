@@ -9,22 +9,35 @@ PorterJS exposes several convenience wrappers:
 * ``p.one()``
 * ``p.all()``
   
-These methods are essentially just wrappers for ``document.querySelector`` and ``document.querySelectorAll``. You can chain them together, as long as ``all()`` is not followed by another call.
+These methods are essentially just wrappers for ``document.querySelector`` and ``document.querySelectorAll``. However, they can be chained together in any combination, unlike ``document.querySelector`` and ``document.querySelectorAll``.
 
-.. code-block:: text
+.. code-block:: javascript
 
     p.one('#some_id').all('p')      >> OKAY
     p.one('#some_id').one('p')      >> OKAY
-    p.all('.some_class').one('p')   >> NOT OKAY
-    p.all('.some_class').all('p')   >> NOT OKAY
+    p.all('.some_class').one('p')   >> OKAY
+    p.all('.some_class').all('p')   >> OKAY
 
-Another difference is that you can call ``addEventListener()`` and ``removeEventListener`` on an entire group of nodes, unlike in stock JavaScript. So, for example, the following would work as expected.
+
+You can call ``addEventListener()`` and ``removeEventListener`` on an entire group of nodes, unlike in stock JavaScript. So, for example, the following would work as expected.
 
 .. code-block:: javascript
 
     p.all('.some_class').addEventListener('click', callSomeFunction)
 
+Also, another difference from ``document.querySelectorAll`` and ``all`` is that you can run a ``forEach`` loop or a ``for-of`` loop.
 
+.. code-block:: javascript
+
+    var q = p.all('.some_class');
+
+    q.forEach( function (item) {
+        ...
+    })
+
+    for (var item of q) {
+        ...
+    }
 
 Methods
 -------
@@ -78,6 +91,8 @@ Instead, you shoule interact with the `stack` by using the getter and setter met
         Used to retrive a key/value pair from state. If the second, optional parameter is passed, it will return this as a default value if the ``key`` is not in the ``state``.
 *   ``p.stack.push(<NAME OF KEY>, <VALUE>, <OPTIONAL CALLBACK>)``:
         Used to push a value to a an array in the state. If the optional callback is passed, it will be called after the value has been stored.
+*   ``p.stack.update(<NAME OF KEY>, <NAME OF PROPERTY>, <VALUE>, <OPTIONAL CALLBACK>)``:
+        Used to change a single property of an object already stored in the stack. If the optional callback is passed, it will be called after the value has been stored.
 
 Regardless of the ``key``, there will be an event emmitted when storing a key/value to the ``state``. Its name will be ``key + 'StackChange'``. Therefore, you can capture this by adding a custom event.
 
@@ -102,6 +117,32 @@ This also works with the ``push()`` method.
     })
 
     p.stack.push('someKey', 'abcdefg')
+
+You can get all of the keys that have been set with the ``.keys()`` method.
+
+.. code-block:: javascript
+
+    for (var key of p.stack.keys()) {
+        console.log(key)
+    }
+
+Sometimes you do not want to override an entire object that is stored in the ``stack``. What if you only want to update a single property? No problem, call ``.update()``.
+
+.. code-block:: javascript
+
+    var nested = {
+        inner: {
+            property: {
+                found: {
+                    here: 'Hello, world.'
+                }
+            }
+        }
+    }
+
+    p.stack.set('nested', nested)
+    p.stack.update('nested', 'inner.property.found.here', 123)
+
 
 
 ``p.Request``

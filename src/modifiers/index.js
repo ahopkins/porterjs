@@ -2,96 +2,11 @@ import {trigger_call, settings} from '../public'
 import {NodeQuery} from './nodequery'
 
 export const startup = () => {
-    // Object.defineProperty(NodeList.prototype, "addEventListener", {
-    //     value: function (event, callback, useCapture) {
-    //         useCapture = ( !! useCapture) | false
-    //         for (var i = 0; i < this.length; ++i) {
-    //             let node = this[i]
-    //             if (node instanceof Node) {
-    //                 new NodeListener(node, event, callback, useCapture)
-    //             }
-    //         }
-    //         return this
-    //     }
-    // })
-    // Object.defineProperty(NodeList.prototype, "removeEventListener", {
-    //     value: function 
-    // })
-    // // TODO:
-    // // - Document addition of innerHTML to prototype
-    // Object.defineProperty(NodeList.prototype, "innerHTML", {
-    //     set: function (value) {
-    //         for (var i = 0; i < this.length; ++i) {
-    //             let node = this[i]
-    //             if (node instanceof Node) {
-    //                 node.innerHTML = value
-    //             }
-    //         }
-    //     }
-    // })
-    // // TODO:
-    // // - Document addition of removeClass to prototype
-    // Object.defineProperty(NodeList.prototype, "removeClass", {
-    //     value: function (value) {
-    //         for (var i = 0; i < this.length; ++i) {
-    //             let node = this[i]
-    //             if (node instanceof Node) {
-    //                 node.removeClass(value)
-    //             }
-    //         }
-    //     }
-    // })
-    // // TODO:
-    // // - Document addition of addClass to prototype
-    // Object.defineProperty(NodeList.prototype, "addClass", {
-    //     value: function (value) {
-    //         for (var i = 0; i < this.length; ++i) {
-    //             let node = this[i]
-    //             if (node instanceof Node) {
-    //                 node.addClass(value)
-    //             }
-    //         }
-    //     }
-    // })
-    // // TODO:
-    // // - Document addition to prototype
-    // Object.defineProperty(NodeList.prototype, "one", {
-    //     value: function (querySelector) {
-    //         let list = []
-    //         this.forEach( function(node) {
-    //             const item = node.one(querySelector)
-    //             if (item !== null) {
-    //                 list.push(item)
-    //             }
-    //         })
-    //         return list
-    //     }
-    // })
-    // // TODO:
-    // // - Document addition to prototype
-    // Object.defineProperty(NodeList.prototype, "all", {
-    //     value: function (querySelector) {
-    //         let list = []
-    //         this.forEach( function(node) {
-    //             const items = node.all(querySelector)
-    //             if (items !== null) {
-    //                 items.forEach(function (item) {
-    //                     list.push(item)
-    //                 })
-    //             }
-    //         })
-    //         return list
-    //     }
-    // })
-    // TODO:
-    // - Document addition to prototype
     Object.defineProperty(Object.prototype, "getProperty", {
         value: function (desc) {
             return desc.split('.').reduce((o, i) => o[i], this)
         }
     })
-    // TODO:
-    // - Document addition to prototype
     Object.defineProperty(Object.prototype, "setProperty", {
         value: function (desc, value) {
             const arr = desc.split('.')

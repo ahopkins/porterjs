@@ -29,6 +29,11 @@ export function getTarget (e) {
     }
 }
 
+// Check if element is a string or an Element. If string, get Element
+export function getElement (e) {
+    return typeof e == 'string' ? one(e) : e
+}
+
 export function ready (fn) {
   if (document.readyState != 'loading') {
     fn()

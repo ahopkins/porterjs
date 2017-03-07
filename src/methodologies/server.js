@@ -1,5 +1,8 @@
+import {CONFIG} from '../config'
+import {getElement} from '../utils'
+
 const serverSideRequest = function (element, url, method, data, callback) {
-    element = element || null;
+    element = getElement(element) || null;
     url = url || false;
     method = method || false;
     data = data || {};
@@ -7,8 +10,6 @@ const serverSideRequest = function (element, url, method, data, callback) {
 
     let csrftoken = null
 
-    // TODO:
-    // - Check if element is a string or an Element. If string, get Element
 
     // Ignore if the user passed a method to the function
     if (!method) {
@@ -30,10 +31,7 @@ const serverSideRequest = function (element, url, method, data, callback) {
 
     // Check if we need to get a csrftoken
     if (["POST", "PUT", "PATCH", "DELETE"].indexOf(method) >= 0) {
-
-        // TODO:
-        // - Abstract away the token name
-        csrftoken = Cookie.get('csrftoken')
+        csrftoken = Cookie.get(CONFIG.csrftoken)
     }
     console.log(`csrftoken: ${csrftoken}`)
 
@@ -42,18 +40,16 @@ const serverSideRequest = function (element, url, method, data, callback) {
         // If URL was not set, and there was no ELEMENT, then there is no way
         // to know where to direct the page to, therefore raise and error
         if (element === null) {
-            console.log('raise error')
+            console.error('Impossible page direction. Assign element or URL.')
         } else {
-            // url = element.getAttribute('data-url') || element.getAttribute('href') || element.getAttribute('action')
             url = findAttribute(element, 'data-url') || findAttribute(element, 'href') || element.getAttribute('action')
-            // console.log(url)
         }
 
         // If a URL still does not exist, check if maybe it is inside a form, and execute that
         if (!url && element.closest('form') !== null) {
             // If it is a form being triggered ... ERROR
             if (element.nodeName == 'FORM') {
-                console.log('Error because no URL found on triggered, or form element')
+                console.error('No URL found on triggered, or form element.')
                 return
             }
             return c(element.closest('form'), url, null, null, callback)
@@ -80,15 +76,6 @@ const serverSideRequest = function (element, url, method, data, callback) {
     console.log("==========/\\/\\==========")
 
     const request = new Request(url)
-    // request.get().then((response) => {
-    //     // console.log(response)
-    //     const processor = new Processor(response)
-    //     processor.success()
-    // }).catch((error) => {
-    //     // console.log(error)
-    //     const processor = new Processor(response)
-    //     processor.success()
-    // })
     request[method.toLowerCase()](data, csrftoken).then((response) => {
         console.log(response)
         const processor = new Processor(response)

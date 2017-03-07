@@ -9,8 +9,6 @@ import * as load_robust_porter from './load_robust_porter'
 import {events} from '../public'
 
 export function load () {
-    // TODO:
-    // - Add to hooks documentation: preLoaders and postLoaders
     events.dispatch('preLoaders')
 
     // console.log('running load')

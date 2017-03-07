@@ -1,7 +1,7 @@
 Welcome to PorterJS
 ===================
 
-Read through the `documentation`_ and check out our `demo`_.
+Read through the `documentation`_ and check out our `demo`_. If you want to see an example of how to build with it, as a client-side render single-page web application, check out `PorterMail`_.
 
 You can get up and running by installing via ``npm``.
 
@@ -15,10 +15,11 @@ But, the only file you need is the resource, which you can get from `jsdelivr`_:
 
     <script type="text/javascript" src="//cdn.jsdelivr.net/porterjs/1.0.1/porter.min.js"></script>
 
-So, feel free do just download that one file.
+So, feel free to just link that one file.
 
 This project is currently in active development. Please feel free to join as a tester, debugger, programmer, or drinking buddy.
 
 .. _demo: http://porter.js.org
 .. _documentation: http://porterjs.readthedocs.io/en/latest/
 .. _jsdelivr: http://www.jsdelivr.com/projects/porterjs
+.. _PorterMail: https://github.com/ahopkins/portermail
