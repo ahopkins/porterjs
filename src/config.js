@@ -4,7 +4,7 @@ const defaults = {
 }
 // TODO:
 // - Document addition of PorterConfig
-export const getConfig = () =>{
+export const getConfig = () => {
     const extendDefault = typeof PorterConfig
     let xdConfig
 
