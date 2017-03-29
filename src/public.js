@@ -7,13 +7,14 @@ import {Router} from './routers'
 import {Request} from './requests'
 import {load} from './loaders'
 import {ready, debounce, range, randomCharacters, findAttribute, getTarget} from './utils'
+import {render, node} from './renderers'
 
 export const one = NodeQuery.one.bind(document)
 export const all = NodeQuery.all.bind(document)
-export const events = new Dispatcher()
-export const router = new Router()
-export const stack = new DataStack()
-export { process_callbacks, trigger_call, Request, load, ready, debounce, range, randomCharacters, findAttribute, getTarget }
+export const events = (new Dispatcher())
+export const router = (new Router())
+export const stack = (new DataStack())
+export { process_callbacks, trigger_call, Request, load, ready, debounce, range, randomCharacters, findAttribute, getTarget, render, node }
 
 export const settings = {
   pushPath: true,

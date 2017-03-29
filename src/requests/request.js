@@ -7,6 +7,7 @@ export class Request {
         this.url = url
         this.data = {}
         this.csrftoken = null
+        this.before = () => {}
 
         this.resolve = () => { console.warn('NOT IMPLEMENTED') }
         this.reject = () => { console.warn('NOT IMPLEMENTED') }
@@ -65,6 +66,8 @@ export class Request {
         if (globalRequestBefore !== undefined && globalRequestBefore !== null) {
             globalRequestBefore()
         }
+
+        this.before.call()
 
         if (['OPTIONS', 'HEAD', 'GET'].includes(method) == false) {
             csrftoken = this.csrftoken

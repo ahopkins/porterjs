@@ -15,7 +15,7 @@ But, the only file you need is the resource, which you can get from `jsdelivr`_:
 
 .. code-block:: html
 
-    <script type="text/javascript" src="//cdn.jsdelivr.net/porterjs/1.0.1/porter.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/porterjs/1.1.3/porter.min.js"></script>
 
 So, feel free to just link that one file.
 

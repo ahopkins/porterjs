@@ -20,6 +20,25 @@ export function findAttribute (element, attribute) {
     return null
 }
 
+// TODO:
+// - Add to documentation
+export function findElementWithAttribute (element, attribute, value=null) {
+    // let a = element.getAttribute(attribute)
+    // if (a !== undefined) return a
+    if (element != null) {
+        while (element.parentNode) {
+            let a = element.getAttribute(attribute)
+            if (a !== undefined && a !== null) {
+                if ((value !== null && a === value) || value === null) {
+                  return element
+                }
+            }
+            element = element.parentNode
+        }
+    }
+    return null
+}
+
 export function getTarget (e) {
     const attr = findAttribute(e.srcElement, 'data-target')
     if (attr == 'self') {

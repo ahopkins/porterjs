@@ -25,5 +25,9 @@ export function load () {
 }
 
 export function startup () {
+    // TODO:
+    // - Add to documentation
+    events.dispatch('preInitialLoaders')
     load()    
+    events.dispatch('postInitialLoaders')
 }
