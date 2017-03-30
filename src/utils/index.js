@@ -1,8 +1,16 @@
+import {CONFIG} from '../config'
 import {one} from '../public'
 import * as loaders from '../loaders'
+import {clientSideStartup} from '../methodologies/client'
+import {serverSideStartup} from '../methodologies/server'
 
 export const startup = (config) => {
   loaders.startup()
+  if (CONFIG.render == 'client') {
+        clientSideStartup()
+  } else {
+        serverSideStartup()
+  }
 }
 
 export function findAttribute (element, attribute) {

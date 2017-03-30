@@ -1,4 +1,5 @@
 import {events, getProperty, setProperty} from '../public'
+import {CONFIG} from '../config'
 
 export class DataStack {
     constructor () {
@@ -17,6 +18,14 @@ export class DataStack {
         }
         const label = `${key}StackChange`
         events.dispatch(label, value)
+    }
+
+    // TODO:
+    // - Documentation
+    establish (key, value, callback) {
+        this.set(key, value, callback)
+        const label = CONFIG.buildTrigger
+        events.dispatch(label)
     }
 
     push (key, value, callback) {
@@ -47,8 +56,6 @@ export class DataStack {
     // - Add to documentation
     update (key, property, value, callback) {
         let obj = this.get(key)
-        // TODO:
-        // - Raise error if the object does not exist.
         obj.setProperty(property, value)
         if (callback !== undefined) {
             callback.apply()

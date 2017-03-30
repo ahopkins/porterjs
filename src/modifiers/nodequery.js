@@ -78,6 +78,14 @@ export class NodeQuery {
         }
     }
 
+    remove () {
+        for (let node of this) {
+            if (node instanceof Node) {
+                node.remove()
+            }
+        }
+    }
+
     *[Symbol.iterator]() {
         // yield this.queryset
         for (let key in this.queryset) {

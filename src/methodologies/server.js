@@ -1,6 +1,8 @@
 import {CONFIG} from '../config'
 import {getElement} from '../utils'
 
+export const serverSideStartup = function () {}
+
 const serverSideRequest = function (element, url, method, data, callback) {
     element = getElement(element) || null;
     url = url || false;
