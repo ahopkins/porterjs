@@ -49,5 +49,7 @@ export class Dispatcher {
     }
 }
 
+export {default as middleware} from './middleware'
+
 // http://www.datchley.name/es6-eventemitter/
 // https://davidwalsh.name/customevent

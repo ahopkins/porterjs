@@ -1,4 +1,4 @@
-import {one, all} from '../public'
+import {one, all, events} from '../public'
 import {renderItem} from './methods'
 
 export default class VirtualDom {
@@ -8,14 +8,17 @@ export default class VirtualDom {
 
     }
 
-    build () {
-        // console.log('build', (!!all(`${this.selector} > [data-porter-node]`).queryset.length))
-        (!!all(`${this.selector} > [data-porter-node]`).queryset.length) && this.clearSelector()
+    build (clear=true) {
+        clear &&
+        (!!all(`${this.selector} > [data-porter-node]`).queryset.length) && 
+        this.clear()
+
         this.rendered = renderItem(this.virtualNode)
         one(this.selector).appendChild(this.rendered)
+        events.dispatch('virtualDomBuild', this)
     }
 
-    clearSelector () {
+    clear () {
         all(`${this.selector} > [data-porter-node]`).remove()
     }
 }

@@ -6,7 +6,7 @@ export {node}
 
 export const render = function (virtualNode, selector) {
     const virtualDom = new VirtualDom(virtualNode, selector)
-    // virtualDom.build()
+    virtualDom.build()
     
     let virtualDoms = stack.get('virtualDoms', {})
 

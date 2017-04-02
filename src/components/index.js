@@ -1,3 +1,7 @@
+import {CONFIG} from '../config'
+
+const porterNodeIdentifier = CONFIG.porterNodeIdentifier
+
 class Component {
     constructor (props, children) {
         this._dirty = true
@@ -36,6 +40,14 @@ class Component {
     }
 
     render (props, state) {}
+
+    renderItem (identifier=null) {
+        let item = this.render()
+        if (identifier) {
+            item.attributes[CONFIG.porterNodeIdentifier] = identifier
+        }
+        return item
+    }
 }
 
 export {Component}
