@@ -33,30 +33,46 @@ export class Router {
             console.error("There are no routes enabled")
         }
 
+        // function matcher(regex, input) {
+        //   return () => {
+        //     const match = regex.exec(input)
+        //     const lastIndex = regex.lastIndex
+        //     return { lastIndex, match }
+        //   }
+        // }
+        // function parsePath(regex, input) {
+        //   const { groups } = regex.exec(input)
+        //   return groups
+        // }
+        function matchPath(regex, input) {
+            regex.lastIndex = 0
+            return regex.test(input)
+        }
+
         for (let r of this.routes) {
-            // TODO:
-            // - Better matcher. Needs to be able to have parameters in path /path/to/id/1
-            // console.log(`${r.path} == ${path}`)
-            if (r.path == path) {
+            if (matchPath(r.path, path)) {
                 route = r
                 break
             }
         }
 
 
+
         if (route == null) {
             console.warn(`No route found matching: ${path}`)
         } else {
             this.current = route
+            this.current.rendered = (path) ? path : '/'
             this.execute()
         }
     }
 
-    goto (name) {
+    goto (name, hard=false) {
         const route = this.namedRoutes[name]
 
         if (route !== undefined) {
             this.current = route
+            // hard && (window.location = this.current.rendered)
             this.execute()
         }
     }
@@ -67,10 +83,9 @@ export class Router {
         } else {
             if (this.current.history) {
                 if (settings.pushPath) {
-                    // console.log(route)
                     window.history.pushState({
-                        url: this.current.path
-                    }, "", this.current.path);
+                        url: this.current.rendered || this.current.fallback
+                    }, "", this.current.rendered || this.current.fallback);
 
                     events.dispatch('pushPath')
                 }
@@ -79,12 +94,8 @@ export class Router {
         }
     }
 
-    add (path, callback, name, history) {
-        name = name || null
-        history = history || false
-        // console.log(`history: ${history}`)
-
-        const route = new Route(path, callback, history)
+    add (path, callback, name=null, history=false, fallback=null) {
+        const route = new Route(path, callback, history, fallback)
         this.routes.push(route)
 
         if (name !== null) {

@@ -112,7 +112,10 @@ export const renderItem = function (virtualNode) {
         if (!nodeExists) {
             // Create new component
             component.preMount()
+            // console.log('virtualNode', virtualNode)
+            // console.log('component', component)
             virtualNode = component.renderItem()
+            // console.log('virtualNode', virtualNode)
             virtualNode.attributes[porterNodeIdentifier] = identifier
             // console.log(virtualNode)
         } else {

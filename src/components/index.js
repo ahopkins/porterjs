@@ -1,38 +1,40 @@
+/*global Object*/
 import {CONFIG} from '../config'
+import {stack} from '../public'
 
 const porterNodeIdentifier = CONFIG.porterNodeIdentifier
 
-class Component {
+export class Component {
     constructor (props, children) {
-        this._dirty = true
+        // this._dirty = true
         this.children = children
         this.props = props
 
-        if (!this.state) this.state = {}
+        this.state = Object.assign(stack, {})
     }
 
     preMount () {
-        console.log('preMount')
+        // console.log('preMount')
     }
 
     postMount () {
-        console.log('postMount')
+        // console.log('postMount')
     }
 
     preUnMount () {
-        console.log('preUnMount')
+        // console.log('preUnMount')
     }
 
     postUnMount () {
-        console.log('postUnMount')
+        // console.log('postUnMount')
     }
 
     preUpdate () {
-        console.log('preUpdate')
+        // console.log('preUpdate')
     }
 
     postUpdate () {
-        console.log('postUpdate')
+        // console.log('postUpdate')
     }
 
     shouldUpdate () {
@@ -42,7 +44,7 @@ class Component {
     render (props, state) {}
 
     renderItem (identifier=null) {
-        let item = this.render()
+        let item = this.render(this.props, this.state)
         if (identifier) {
             item.attributes[CONFIG.porterNodeIdentifier] = identifier
         }
@@ -50,4 +52,4 @@ class Component {
     }
 }
 
-export {Component}
+// export {Component}

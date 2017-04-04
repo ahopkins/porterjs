@@ -62,7 +62,7 @@ export default function (ctx) {
     }
 
     function next(error, end) {
-      if (end || !stack.length) {
+      if (end || (stack && !stack.length)) {
         stack = null
         
         callDone(error)

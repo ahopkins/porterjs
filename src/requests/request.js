@@ -75,6 +75,10 @@ export class Request {
             this.url = `${this.url}?${params}`
         }
         this.req.open(method, this.url, true)
+
+        // TEMP
+        this.req.withCredentials = true
+
         this.req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
         this.req.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
         if (csrftoken !== null) {
