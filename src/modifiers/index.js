@@ -1,5 +1,6 @@
-import {trigger_call, settings} from '../public'
+import {trigger_call, settings, router} from '../public'
 import {NodeQuery} from './nodequery'
+import {CONFIG} from '../config'
 
 export const startup = () => {
     Object.defineProperty(Object.prototype, "getProperty", {
@@ -86,7 +87,13 @@ export const startup = () => {
         window.addEventListener('popstate', function(e) {
             if( !!window.history.state ){
                 var url = window.history.state.url;
-                trigger_call(null, url)
+                console.log('popstate', url)
+
+                if (CONFIG.render == 'server') {
+                    trigger_call(null, url)
+                } else {
+                    router.trigger(null, url)
+                }
             }
         })
     }   

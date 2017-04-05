@@ -19,17 +19,33 @@ export class Router {
         this.current = null
     }
 
-    trigger (e) {
-        let route = null
+    trigger (e, path=null) {
 
         // TODO:
         // - Better path getter. Needs to get path for href, or data-url if class=fake-link
-        const path = (e != undefined) ? e.srcElement.getAttribute('href') :
-                                        window.location.pathname
+        if (!path) {
+            path = (e != undefined) 
+                 ? e.srcElement.getAttribute('href')
+                 : window.location.pathname
+        }
 
         // console.log(`trigger: ${path}`)
 
-        if (this.routes.length == 0) {
+        const route = this.getRoute(path)
+
+        if (route == null) {
+            console.warn(`No route found matching: ${path}`)
+        } else {
+            this.current = route
+            this.current.rendered = (path) ? path : '/'
+            this.execute()
+        }
+    }
+
+    getRoute (path) {
+        let route = null
+
+        if (!this.routes) {
             console.error("There are no routes enabled")
         }
 
@@ -56,15 +72,7 @@ export class Router {
             }
         }
 
-
-
-        if (route == null) {
-            console.warn(`No route found matching: ${path}`)
-        } else {
-            this.current = route
-            this.current.rendered = (path) ? path : '/'
-            this.execute()
-        }
+        return route
     }
 
     goto (name, hard=false) {
@@ -100,6 +108,7 @@ export class Router {
 
         if (name !== null) {
             this.namedRoutes[name] = route
+            route.name = name
         }
     }
 }
