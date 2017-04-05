@@ -27,16 +27,14 @@ export class Processor {
     }
 
     prepare () {
-        if (this.response.json == null) {
-            // console.log('not JSON html parser')
+        if (this.response.json) {
+            this.html = this.response.json.html || null
+            this.callbacks = this.response.json.callbacks || []
+            this.errors = this.response.json.errors || []
+            this.redirect = this.response.json.redirect || null
+        } else {
             this.html = this.response.responseText
-        } else{
-            this.html = this.response.json.html
         }
-
-        this.callbacks = this.response.json.callbacks || []
-        this.errors = this.response.json.errors || []
-        this.redirect = this.response.json.redirect || null
     }
 
     run () {

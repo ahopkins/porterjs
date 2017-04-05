@@ -26,15 +26,17 @@ export default function (processor) {
             apply_html(content, processor.html, processor.response.url)
         }
     } else if (type == "object") {
-        if (Array.isArray(processor.html)) {
-            for (let obj of processor.html) {
-                let e = p.one(`#${obj.id}`)
-                apply_html(e, obj.content, processor.response.url)
-            }
-        } else {
-            for (let [key, value] of processor.html) {
-                let e = p.one(`#${key}`)
-                apply_html(e, value, processor.response.url)
+        if (processor.html) {
+            if (Array.isArray(processor.html)) {
+                for (let obj of processor.html) {
+                    let e = p.one(`#${obj.id}`)
+                    apply_html(e, obj.content, processor.response.url)
+                }
+            } else {
+                for (let [key, value] of processor.html) {
+                    let e = p.one(`#${key}`)
+                    apply_html(e, value, processor.response.url)
+                }
             }
         }
     }

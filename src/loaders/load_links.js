@@ -29,7 +29,7 @@ const togglerMethod = (e) => {
     }
 }
 
-const ajaxClick = (e) => {
+const navClick = (e) => {
     e.preventDefault()
     e.stopPropagation()
 
@@ -53,7 +53,7 @@ export const run = () => {
     // - Create option to whitelabel or blacklabel usage of all <a> elements
     // const links = all("a:not(.ignore-self):not(.exclude):not([target])")
     const links = all("a:not(.ignore-self):not(.toggler):not(.exclude):not(.modal-open), [data-url]")
-    links.removeEventListener("click", ajaxClick).addEventListener("click", ajaxClick)
+    links.removeEventListener("click", navClick).addEventListener("click", navClick)
 
     const togglers = all(".toggler")
     togglers.removeEventListener("click", togglerMethod).addEventListener("click", togglerMethod)
