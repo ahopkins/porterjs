@@ -9,16 +9,18 @@ export default function (processor) {
                 element = one(`#id_${key}`)
             }
 
-            if (element !== null) {
+            if (element) {
                 for (let error of value){
-                    console.log(error)
-                    let htmlString = `<div class="error">${error}</div>`
+                    let htmlString = `<div class="error enter-flip">${error}</div>`
                     element.insertAdjacentHTML('afterend', htmlString);
+                }
+            } else {
+                for (let error of value){
+                    new pNotify(`${error} (${key})`)
                 }
             }
         }
     }
-    console.log(processor)
     // TODO:
     // - Add support for arrays (publish somewhere generic place, maybe just console.log)
 }

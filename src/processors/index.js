@@ -3,10 +3,10 @@ import {default as process_errors} from './process_errors'
 import {default as process_redirect} from './process_redirect'
 import {default as process_callbacks} from './process_callbacks'
 import {load} from '../loaders'
+import {one, all} from '../public'
 
 // export {process_success}
 
-import {one} from '../public'
 
 export class Processor {
 
@@ -52,8 +52,19 @@ export class Processor {
     }
 
     error () {
+        all('.saving').removeClass('saving')
         console.log('TODO: abstract and allow for more user friendly error responses')
-        console.log(this.response)
-        document.write(this.html)
+        this.errors = JSON.parse(this.response.responseText)
+        process_errors(this)
+        // for (let [key, value] of e) {
+        //     const element = one(`#${key}`)
+        //     const error = document.createElement('div')
+        //     const text = document.createTextNode(value)
+        //     error.appendChild(text)
+        //     error.addClass('error').addClass('enter-flip')
+        //     if (element) {
+        //         element.parentNode.appendChild(error)
+        //     }
+        // }
     }
 }

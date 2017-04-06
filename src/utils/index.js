@@ -19,13 +19,23 @@ export function findAttribute (element, attribute) {
     if (element != null) {
         while (element.parentNode) {
             let a = element.getAttribute(attribute)
-            if (a !== undefined && a !== null) {
+            if (a) {
                 return a
             }
             element = element.parentNode
         }
     }
     return null
+}
+
+export function getLocation (element) {
+  let location = findAttribute(element, 'href')
+  if (!location) {
+    location = findAttribute(element, 'data-url')
+  } else if (!location) {
+    location = findAttribute(element, 'action')
+  }
+  return location
 }
 
 // TODO:

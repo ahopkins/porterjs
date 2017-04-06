@@ -11,6 +11,7 @@
 // }
 import {Route} from './objects'
 import {events, settings} from '../public'
+import {getLocation} from '../utils'
 
 export class Router {
     constructor () {
@@ -21,15 +22,29 @@ export class Router {
 
     trigger (e, path=null) {
 
-        // TODO:
-        // - Better path getter. Needs to get path for href, or data-url if class=fake-link
+        console.log('getLocation', getLocation(e.srcElement))
         if (!path) {
-            path = (e != undefined) 
-                 ? e.srcElement.getAttribute('href')
+            path = (e) 
+                 ? getLocation(e.srcElement).replace(/(?:(?:http|https):\/\/(?:[a-z0-8:]*))?\//g, '/')
                  : window.location.pathname
         }
 
-        // console.log(`trigger: ${path}`)
+        const regex = /\?(.*)/g
+        let m, items
+
+        while ((m = regex.exec(path)) !== null) {
+            if (m.index === regex.lastIndex) {
+                regex.lastIndex++
+            }
+
+            items = m[1].split('&').map(item => {
+                const x = item.split('=')
+                return {
+                    key: x[0],
+                    value: x[1]
+                }
+            })
+        }
 
         const route = this.getRoute(path)
 
@@ -38,7 +53,7 @@ export class Router {
         } else {
             this.current = route
             this.current.rendered = (path) ? path : '/'
-            this.execute()
+            this.execute(null, items)
         }
     }
 
@@ -66,6 +81,7 @@ export class Router {
         }
 
         for (let r of this.routes) {
+            // console.log('route test', r.path, path, matchPath(r.path, path))
             if (matchPath(r.path, path)) {
                 route = r
                 break
@@ -85,7 +101,7 @@ export class Router {
         }
     }
 
-    execute (e) {
+    execute (e, items=null) {
         if (this.current === null) {
             console.error("No current route set. Cannot execute.")
         } else {
@@ -98,7 +114,7 @@ export class Router {
                     events.dispatch('pushPath')
                 }
             }
-            this.current.trigger(e)
+            this.current.trigger(e, items)
         }
     }
 

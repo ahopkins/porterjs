@@ -69,7 +69,14 @@ const c = function (element, url, method, data, callback) {
         if (element != null && element.nodeName == 'FORM') {
             const formData = new FormData(element)
             for (let [key, value] of formData.entries()) {
-                data[key] = value
+                if (data[key]) {
+                    if (typeof data[key] == 'string') {
+                        data[key] = [data[key]]
+                    }
+                    data[key].push(value)
+                } else {
+                    data[key] = value
+                }
             }
         }
 

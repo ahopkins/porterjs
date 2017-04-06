@@ -8,7 +8,7 @@ export class Route {
         this.fallback = fallback
     }
 
-    trigger (e) {
-        this.callback(e)
+    trigger (e, items=null) {
+        this.callback(e, items)
     }
 }
