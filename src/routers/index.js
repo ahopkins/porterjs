@@ -22,7 +22,6 @@ export class Router {
 
     trigger (e, path=null) {
 
-        console.log('getLocation', getLocation(e.srcElement))
         if (!path) {
             path = (e) 
                  ? getLocation(e.srcElement).replace(/(?:(?:http|https):\/\/(?:[a-z0-8:]*))?\//g, '/')
@@ -58,7 +57,8 @@ export class Router {
     }
 
     getRoute (path) {
-        let route = null
+        let route = null,
+            params = []
 
         if (!this.routes) {
             console.error("There are no routes enabled")
@@ -71,10 +71,19 @@ export class Router {
         //     return { lastIndex, match }
         //   }
         // }
-        // function parsePath(regex, input) {
-        //   const { groups } = regex.exec(input)
-        //   return groups
-        // }
+        function parsePath(regex, input) {
+            regex.lastIndex = 0
+            const { ...groups } = regex.exec(input)
+            return Array.from(groups)
+                        .map((x, y) => {
+                            return [x[0], x[1]]
+                        })
+                        .filter( x => {
+                            if (!['0', 'index', 'input'].includes(x[0])) {
+                                return true
+                            }
+                        }).map(x => x[1])
+        }
         function matchPath(regex, input) {
             regex.lastIndex = 0
             return regex.test(input)
@@ -83,7 +92,9 @@ export class Router {
         for (let r of this.routes) {
             // console.log('route test', r.path, path, matchPath(r.path, path))
             if (matchPath(r.path, path)) {
+                params = parsePath(r.path, path)
                 route = r
+                route.params = params
                 break
             }
         }
@@ -91,8 +102,10 @@ export class Router {
         return route
     }
 
-    goto (name, hard=false) {
-        const route = this.namedRoutes[name]
+    goto (input, hard=false) {
+        const route = (typeof input === 'string')
+                    ? this.namedRoutes[name]
+                    : input
 
         if (route !== undefined) {
             this.current = route

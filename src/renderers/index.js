@@ -4,7 +4,7 @@ import VirtualDom from './VirtualDom'
 
 export {node}
 
-export const render = function (virtualNode, selector) {
+export const render = function (virtualNode, selector, callback=null) {
     const virtualDom = new VirtualDom(virtualNode, selector)
     virtualDom.build()
     
@@ -16,6 +16,8 @@ export const render = function (virtualNode, selector) {
         virtualDoms[selector] = virtualDom
         stack.set('virtualDoms', virtualDoms)
     }
+
+    !!callback && callback.call()
 
     return virtualDom
 }
