@@ -104,13 +104,15 @@ export class Router {
 
     goto (input, hard=false) {
         const route = (typeof input === 'string')
-                    ? this.namedRoutes[name]
+                    ? this.namedRoutes[input]
                     : input
 
-        if (route !== undefined) {
+        if (route) {
             this.current = route
             // hard && (window.location = this.current.rendered)
             this.execute()
+        } else {
+            console.error('No route found.')
         }
     }
 
