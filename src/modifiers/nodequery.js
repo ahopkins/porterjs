@@ -86,6 +86,14 @@ export class NodeQuery {
         }
     }
 
+    setAttribute (attribute, value) {
+        for (let node of this) {
+            if (node instanceof Node) {
+                node.setAttribute(attribute, value)
+            }
+        }
+    }
+
     *[Symbol.iterator]() {
         // yield this.queryset
         for (let key in this.queryset) {
