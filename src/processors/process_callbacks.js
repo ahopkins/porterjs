@@ -2,6 +2,7 @@ import {one} from '../public'
 
 export default function (processor) {
     const type = typeof processor.callbacks
+    console.log('callbacks', processor)
     if (type == "object") {
         processor.callbacks.forEach(function (callback) {
             const chain = callback.function.split('.'),

@@ -61,6 +61,6 @@ export class DataStack {
             callback.apply()
         }
         const label = `${key}StackChange`
-        events.dispatch(label, value)
+        events.dispatch(label, value, property, obj)
     }
 }

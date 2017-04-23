@@ -12,7 +12,7 @@ module.exports = {
         port: 8181,
         hot: true,
         contentBase: __dirname,
-        inline: true 
+        inline: true
     },
     module: {
         loaders: [{

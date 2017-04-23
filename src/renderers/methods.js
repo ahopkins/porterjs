@@ -111,7 +111,7 @@ export const renderItem = function (virtualNode) {
 
         if (!nodeExists) {
             // Create new component
-            component.preMount()
+            component.preMount(component.props, component.state)
             // console.log('virtualNode', virtualNode)
             // console.log('component', component)
             virtualNode = component.renderItem()
@@ -120,8 +120,8 @@ export const renderItem = function (virtualNode) {
             // console.log(virtualNode)
         } else {
             // Update existing component
-            if (component.shouldUpdate()) {
-                component.preUpdate()
+            if (component.shouldUpdate(component.props, component.state)) {
+                component.preUpdate(component.props, component.state)
                 virtualNode = component.renderItem(identifier)
                 virtualNode.attributes[porterNodeIdentifier] = identifier
             } else {
@@ -168,7 +168,7 @@ export const renderItem = function (virtualNode) {
     //          call virtualNode.postUpdate()
     if (component !== null) {
         const callbackEvent = (created) ? component.postMount : component.postUpdate
-        callbackEvent()
+        callbackEvent(component.props, component.state)
     }
 
     return element

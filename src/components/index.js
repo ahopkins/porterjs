@@ -13,31 +13,31 @@ export class Component {
         this.state = Object.assign(stack, {})
     }
 
-    preMount () {
+    preMount (props, state) {
         // console.log('preMount')
     }
 
-    postMount () {
+    postMount (props, state) {
         // console.log('postMount')
     }
 
-    preUnMount () {
+    preUnMount (props, state) {
         // console.log('preUnMount')
     }
 
-    postUnMount () {
+    postUnMount (props, state) {
         // console.log('postUnMount')
     }
 
-    preUpdate () {
+    preUpdate (props, state) {
         // console.log('preUpdate')
     }
 
-    postUpdate () {
+    postUpdate (props, state) {
         // console.log('postUpdate')
     }
 
-    shouldUpdate () {
+    shouldUpdate (props, state) {
         return true
     }
 
