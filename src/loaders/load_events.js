@@ -28,7 +28,7 @@ const eventListener = function (e) {
 
 export const run = () => {
     const events = ['click','keyup','keydown','focus','blur','change']
-    for (event of events) {
+    for (let event of events) {
         let attribute = `data-${event}`
         all(`[${attribute}]`)
             .addEventListener(event, eventListener)
