@@ -3,7 +3,13 @@ Welcome to PorterJS
 
 |KnownVulnerabilities| |Build| |StackShare|
 
-.. seealso:: PorterJS is in the middle of a fairly substantial overhaul that **will** impact the API and backwards compatibility. Most likely, I will be incrementing the release number to version 2.0 when complete. The biggest changes will be the removal of server side operations as the `Request` and `Response` elements are being removed. In addition, the JSX branch will be merged into the master branch allowing full JSX implementation, and both component level and global level state management.
+Version 2.0 (coming soon)
++++++++++++++++++++++++++
+
+.. note:: PorterJS is in the middle of a fairly substantial overhaul that **will** impact the API and backwards compatibility. Most likely, I will be incrementing the release number to version 2.0 when complete. The biggest changes will be the removal of server side operations as the `Request` and `Response` elements are being removed. In addition, the JSX branch will be merged into the master branch allowing full JSX implementation, and both component level and global level state management.
+
+Version 1.1
++++++++++++
 
 Read through the `documentation`_ and check out our `demo`_. If you want to see an example of how to build with it, as a client-side render single-page web application, check out `PorterMail`_.
 
