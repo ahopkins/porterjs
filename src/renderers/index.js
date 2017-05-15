@@ -1,5 +1,5 @@
 import {stack} from '../public'
-import {node} from './methods'
+import {node} from './node'
 import VirtualDom from './VirtualDom'
 
 export {node}

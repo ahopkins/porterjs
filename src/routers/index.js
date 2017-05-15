@@ -24,7 +24,7 @@ export class Router {
 
         if (!path) {
             path = (e && getLocation(e.srcElement)) 
-                 ? getLocation(e.srcElement).replace(/(?:(?:http|https):\/\/(?:[a-z0-8:]*))?\//g, '/')
+                 ? getLocation(e.srcElement).replace(/(?:(?:http|https):\/\/(?:[a-z0-8:\.]*))?\//g, '/')
                  : window.location.pathname
         }
 

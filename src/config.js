@@ -2,7 +2,8 @@ const defaults = {
     render: 'server',
     csrftoken: 'csrftoken',
     porterNodeIdentifier: 'data-porter-node',
-    buildTrigger: 'VirtualDomBuildTrigger'
+    buildTrigger: 'VirtualDomBuildTrigger',
+    debug: false,
 }
 // TODO:
 // - Document addition of PorterConfig

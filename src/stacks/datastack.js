@@ -1,8 +1,12 @@
 import {events, getProperty, setProperty} from '../public'
 import {CONFIG} from '../config'
 
+export const datastacks = []
+
 export class DataStack {
-    constructor () {
+    constructor (dispatcher=null) {
+        datastacks.push(this)
+        this.events = dispatcher || events
         this.storage = new Proxy({}, {
             set: function(target, prop, value) {
                 const reflect = Reflect.set(target, prop, value)
@@ -16,8 +20,8 @@ export class DataStack {
         if (callback !== undefined) {
             callback.apply()
         }
-        const label = `${key}StackChange`
-        events.dispatch(label, value)
+        const label = `StackChange||${key}||${this.events.label}`
+        this.events.dispatch(label, value)
     }
 
     // TODO:
@@ -25,7 +29,7 @@ export class DataStack {
     establish (key, value, callback) {
         this.set(key, value, callback)
         const label = CONFIG.buildTrigger
-        events.dispatch(label)
+        this.events.dispatch(label)
     }
 
     push (key, value, callback) {
@@ -36,8 +40,8 @@ export class DataStack {
         if (callback !== undefined) {
             callback.apply()
         }
-        const label = `${key}StackChange`
-        events.dispatch(label, value)
+        const label = `StackChange||${key}||${this.events.label}`
+        this.events.dispatch(label, value)
     }
 
     get (key, def) {
@@ -60,7 +64,7 @@ export class DataStack {
         if (callback !== undefined) {
             callback.apply()
         }
-        const label = `${key}StackChange`
-        events.dispatch(label, value, property, obj)
+        const label = `StackChange||${key}||${this.events.label}`
+        this.events.dispatch(label, value, property, obj)
     }
 }

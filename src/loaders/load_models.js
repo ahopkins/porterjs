@@ -1,6 +1,6 @@
 import {one, all, events} from '../public'
 // import {trigger_bind} from '../triggers'
-// import {Dispatcher} from '../helpers'
+import {dispatchers} from '../helpers'
 
 const parse_value = (element, value) => {
     if (element !== document.activeElement){
@@ -18,9 +18,19 @@ export const run = () => {
     const models = all("[data-model]")
 
     for (let model of models) {
-        let name = model.getAttribute('data-model')
-        let label = `${name}StackChange`
-        let callback = (model.nodeName == 'INPUT') ? parse_value : parse_content
-        events.add(label, value => callback(model, value))
+        const name = model.getAttribute('data-model')
+        let dispatcherLabel = model.getAttribute('data-label')
+        let useEvents = events
+
+        if (dispatcherLabel) {
+            useEvents = dispatchers[dispatcherLabel]
+        } else {
+            dispatcherLabel = events.label
+        }
+
+        const label = `StackChange||${name}||${dispatcherLabel}`
+        
+        const callback = (model.nodeName == 'INPUT') ? parse_value : parse_content
+        useEvents.add(label, value => callback(model, value))
     }
 }

@@ -1,3 +1,3 @@
-import {DataStack} from './datastack'
+import {DataStack, datastacks} from './datastack'
 
-export {DataStack}
+export {DataStack, datastacks}
