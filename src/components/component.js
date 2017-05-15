@@ -1,19 +1,40 @@
 /*global Object*/
 import {CONFIG} from '../config'
 import {stack} from '../public'
-import {Dispatcher} from '../helpers'
-import {DataStack} from '../stacks'
+import {Dispatcher, dispatchers} from '../helpers'
+import {DataStack, datastacks} from '../stacks'
 import {model} from './utils'
 
 const porterNodeIdentifier = CONFIG.porterNodeIdentifier
+const porterDispatcherIdentifier = CONFIG.porterDispatcherIdentifier
+
+const componentDispatcherKeys = {}
+const componentDataStackKeys = {}
 
 export class Component {
     constructor (props, children) {
         // this._dirty = true
+
+
         this.children = children
         this.props = props
-        this.events = new Dispatcher()
-        this.state = new DataStack(this.events)
+        this.identifier = this.props[porterNodeIdentifier]
+        this.dispatcherIdentifier = componentDispatcherKeys[this.identifier]
+        this.datastackIdentifier = componentDataStackKeys[this.identifier]
+        // console.log('------')
+        // console.log('identifier', this.identifier)
+        // console.log('existing dispatchers', dispatchers)
+        // console.log('componentDispatcherKey', componentDispatcherKeys[this.identifier])
+        // console.log('the existing dispatcher', dispatchers[this.dispatcherIdentifier])
+        this.events = dispatchers[this.dispatcherIdentifier] || new Dispatcher()
+        // console.log('dispatcher label', this.events.label)
+        this.state = datastacks[this.datastackIdentifier] || new DataStack(this.events)
+        // console.log('------')
+
+        componentDispatcherKeys[this.identifier] = this.events.label
+        componentDataStackKeys[this.identifier] = this.state.label
+
+
 
         // this.state = Object.assign(stack, {})
         // stack.push('components', )
@@ -68,9 +89,10 @@ export class Component {
 
     renderItem (identifier=null) {
         let item = this.render(this.props, this.state)
-        if (identifier) {
-            item.attributes[CONFIG.porterNodeIdentifier] = identifier
+        if (identifier || this.identifier) {
+            item.attributes[CONFIG.porterNodeIdentifier] = identifier || this.identifier
         }
+        // item.attributes[porterDispatcherIdentifier] = this.events.label
         return item
     }
 }

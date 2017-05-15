@@ -1,11 +1,12 @@
 import {events, getProperty, setProperty} from '../public'
 import {CONFIG} from '../config'
+import {randomCharacters} from '../utils'
 
-export const datastacks = []
+export const datastacks = {}
 
 export class DataStack {
     constructor (dispatcher=null) {
-        datastacks.push(this)
+        this.label = randomCharacters(18)
         this.events = dispatcher || events
         this.storage = new Proxy({}, {
             set: function(target, prop, value) {
@@ -13,6 +14,8 @@ export class DataStack {
                 return reflect
             }
         })
+
+        datastacks[this.label] = this
     }
 
     set (key, value, callback) {
@@ -44,8 +47,7 @@ export class DataStack {
         this.events.dispatch(label, value)
     }
 
-    get (key, def) {
-        def = def || null
+    get (key, def=null) {
         if (this.storage[key] == undefined) {
             return def
         }

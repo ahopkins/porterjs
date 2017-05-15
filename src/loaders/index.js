@@ -14,7 +14,7 @@ export function load () {
     // console.log('running load')
     // load_links.run()
     // load_inputs.run()
-    // load_binders.run()
+    load_binders.run()
     load_models.run()
     load_events.run()
     // load_list.run()    

@@ -2,6 +2,7 @@ const defaults = {
     render: 'server',
     csrftoken: 'csrftoken',
     porterNodeIdentifier: 'data-porter-node',
+    porterDispatcherIdentifier: 'data-porter-dispatcher',
     buildTrigger: 'VirtualDomBuildTrigger',
     debug: false,
 }

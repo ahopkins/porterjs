@@ -18,6 +18,7 @@ export const renderItem = function (virtualNode) {
     const identifier = virtualNode.attributes[CONFIG.porterNodeIdentifier],
           test = `[${CONFIG.porterNodeIdentifier}='${identifier}']`,
           nodeExists = (!!one(test) === true)
+        
     // console.log('check if node exists', test, nodeExists)
 
     // Is nodeName a component?
