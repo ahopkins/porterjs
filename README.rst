@@ -3,6 +3,8 @@ Welcome to PorterJS
 
 |KnownVulnerabilities| |Build| |StackShare|
 
+.. note:: PorterJS is in the middle of a fairly substantial overhaul that **will** impact the API and backwards compatibility. Most likely, I will be incrementing the release number to version 2.0 when complete. The biggest changes will be the removal of server side operations as the `Request` and `Response` elements are being removed. In addition, the JSX branch will be merged into the master branch allowing full JSX implementation, and both component level and global level state management.
+
 Read through the `documentation`_ and check out our `demo`_. If you want to see an example of how to build with it, as a client-side render single-page web application, check out `PorterMail`_.
 
 You can get up and running by installing via ``npm``.
@@ -15,7 +17,7 @@ But, the only file you need is the resource, which you can get from `jsdelivr`_:
 
 .. code-block:: html
 
-    <script type="text/javascript" src="//cdn.jsdelivr.net/porterjs/1.0.1/porter.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/porterjs/1.1.3/porter.min.js"></script>
 
 So, feel free to just link that one file.
 
