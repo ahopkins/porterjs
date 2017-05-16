@@ -21,15 +21,8 @@ export class Component {
         this.identifier = this.props[porterNodeIdentifier]
         this.dispatcherIdentifier = componentDispatcherKeys[this.identifier]
         this.datastackIdentifier = componentDataStackKeys[this.identifier]
-        // console.log('------')
-        // console.log('identifier', this.identifier)
-        // console.log('existing dispatchers', dispatchers)
-        // console.log('componentDispatcherKey', componentDispatcherKeys[this.identifier])
-        // console.log('the existing dispatcher', dispatchers[this.dispatcherIdentifier])
         this.events = dispatchers[this.dispatcherIdentifier] || new Dispatcher()
-        // console.log('dispatcher label', this.events.label)
         this.state = datastacks[this.datastackIdentifier] || new DataStack(this.events)
-        // console.log('------')
 
         componentDispatcherKeys[this.identifier] = this.events.label
         componentDataStackKeys[this.identifier] = this.state.label
@@ -89,8 +82,12 @@ export class Component {
 
     renderItem (identifier=null) {
         let item = this.render(this.props, this.state)
-        if (identifier || this.identifier) {
+        if ((identifier || this.identifier) && !(['svg', 'use'].includes(item.nodeName))) {
             item.attributes[CONFIG.porterNodeIdentifier] = identifier || this.identifier
+        }
+        if (['svg', 'use'].includes(item.nodeName)) {
+            delete item.attributes[CONFIG.porterNodeIdentifier]
+            console.log(item.nodeName, item.attributes)
         }
         // item.attributes[porterDispatcherIdentifier] = this.events.label
         return item

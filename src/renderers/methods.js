@@ -1,13 +1,14 @@
 import {one, stack, componentActions} from '../public'
 import {CONFIG} from '../config'
-import {node} from './node'
+import {node, nodeHashes, generateNodeHash} from './node'
 
 const porterNodeIdentifier = CONFIG.porterNodeIdentifier
+const porterNodeHash = CONFIG.porterNodeHash
 
 export const renderItem = function (virtualNode) {  
     // https://medium.com/@rajaraodv/the-inner-workings-of-virtual-dom-666ee7ad47cf
     if (Number.isInteger(virtualNode)) virtualNode = virtualNode.toString()
-    if (!virtualNode)  {
+    if (virtualNode === null) {
         console.error('Problem virtualNode:', virtualNode)
         virtualNode = '<ERROR: See console.log>'
     }
@@ -24,10 +25,8 @@ export const renderItem = function (virtualNode) {
     // Is nodeName a component?
     if (typeof virtualNode.nodeName === 'function') {
         // Check if node exists
-        // TEMP - Component does NOT exist
-        component = new virtualNode.nodeName(virtualNode.attributes, virtualNode.children)
-
         if (!nodeExists) {
+            component = new virtualNode.nodeName(virtualNode.attributes, virtualNode.children)
             // Create new component
             component.preMount(component.props, component.state)
             virtualNode = component.renderItem()
@@ -46,10 +45,19 @@ export const renderItem = function (virtualNode) {
                 virtualNode = component.renderItem(identifier)
                 virtualNode.attributes[porterNodeIdentifier] = identifier
             } else {
+                // STOP
                 return
             }
         }
     }
+
+    const children = (virtualNode.children || []),
+          currentHash = generateNodeHash(children),
+          lastHash = nodeHashes[identifier]
+
+    // console.log(nodeHashes)
+    // console.log('changed?', (currentHash !== lastHash))
+    // console.log(currentHash, lastHash)
 
 
     // If same as real DOM node from previous render
@@ -73,12 +81,25 @@ export const renderItem = function (virtualNode) {
     //     return
     // }
 
-    let attributes = virtualNode.attributes || {}
+    if (['svg', 'use'].includes(virtualNode.nodeName)) {
+        delete virtualNode.attributes[CONFIG.porterNodeIdentifier]
+    }
+
+    let attributes = Object.assign({}, virtualNode.attributes || {})
+
+    // TEMP - for testing only
+    if (!!attributes.xlinkHref || !!attributes.xlinkhref) {
+        attributes['xlink:href'] = attributes.xlinkHref
+        delete attributes.xlinkHref
+        // console.log('ATTRIBUTES', attributes)
+    }
+        
+    // delete attributes[porterNodeHash]
     for (let [key, value] of attributes) {
         element.setAttribute(key, value)
     }
 
-    (virtualNode.children || []).forEach( c => element.appendChild(renderItem(c)) )
+    children.forEach( c => element.appendChild(renderItem(c)) )
 
     // If parent:
     //      parent.appendChild(virtualNode)

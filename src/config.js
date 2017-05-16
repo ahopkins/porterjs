@@ -1,6 +1,7 @@
 const defaults = {
     render: 'server',
     csrftoken: 'csrftoken',
+    porterNodeHash: 'data-porter-hash',
     porterNodeIdentifier: 'data-porter-node',
     porterDispatcherIdentifier: 'data-porter-dispatcher',
     buildTrigger: 'VirtualDomBuildTrigger',
