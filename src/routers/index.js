@@ -64,25 +64,30 @@ export class Router {
             console.error("There are no routes enabled")
         }
 
-        // function matcher(regex, input) {
-        //   return () => {
-        //     const match = regex.exec(input)
-        //     const lastIndex = regex.lastIndex
-        //     return { lastIndex, match }
-        //   }
-        // }
-        function parsePath(regex, input) {
-            regex.lastIndex = 0
-            const { ...groups } = regex.exec(input)
-            return Array.from(groups)
-                        .map((x, y) => {
-                            return [x[0], x[1]]
-                        })
-                        .filter( x => {
-                            if (!['0', 'index', 'input'].includes(x[0])) {
-                                return true
-                            }
-                        }).map(x => x[1])
+        function parseParams(r, input) {
+            let params = {}
+
+            for (let [key, value] of r.labels) {
+                const part = r.parts[key]
+                const splt = input.split('/')
+                const regex = new RegExp(part)
+                
+                regex.lastIndex = 0
+                const { ...groups } = regex.exec(splt[key])
+                // const cleanedGroups = Array.from(groups)
+                //             .map((x, y) => {
+                //                 return [x[0], x[1]]
+                //             })
+                //             .filter( x => {
+                //                 if (!['0', 'index', 'input'].includes(x[0])) {
+                //                     return true
+                //                 }
+                //             }).map(x => x[1])
+
+                params[value] = groups[0]
+            }
+
+            return params
         }
         function matchPath(regex, input) {
             regex.lastIndex = 0
@@ -90,9 +95,8 @@ export class Router {
         }
 
         for (let r of this.routes) {
-            // console.log('route test', r.path, path, matchPath(r.path, path))
-            if (matchPath(r.path, path)) {
-                params = parsePath(r.path, path)
+            if (matchPath(r.test, path)) {
+                params = parseParams(r, path)
                 route = r
                 route.params = params
                 break
