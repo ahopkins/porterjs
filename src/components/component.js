@@ -19,14 +19,14 @@ export class Component {
         this.children = children
         this.props = props
         this.identifier = this.props[porterNodeIdentifier]
-        this.dispatcherIdentifier = componentDispatcherKeys[this.identifier]
-        this.datastackIdentifier = componentDataStackKeys[this.identifier]
         this.events = dispatchers[this.dispatcherIdentifier] || new Dispatcher()
         this.state = datastacks[this.datastackIdentifier] || new DataStack(this.events)
 
         componentDispatcherKeys[this.identifier] = this.events.label
         componentDataStackKeys[this.identifier] = this.state.label
 
+        this.dispatcherIdentifier = componentDispatcherKeys[this.identifier]
+        this.datastackIdentifier = componentDataStackKeys[this.identifier]
 
 
         // this.state = Object.assign(stack, {})

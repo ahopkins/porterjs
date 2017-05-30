@@ -12,13 +12,13 @@ export function load () {
     events.dispatch('preLoaders')
 
     // console.log('running load')
-    // load_links.run()
-    // load_inputs.run()
+    load_links.run()
+    load_inputs.run()
     load_binders.run()
     load_models.run()
     load_events.run()
-    // load_list.run()    
-    // load_robust_porter.run()
+    load_list.run()    
+    load_robust_porter.run()
     // console.log('load run')
 
     events.dispatch('postLoaders')

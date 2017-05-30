@@ -5,7 +5,7 @@ import {Dispatcher, middleware, dispatchers} from './helpers'
 import {DataStack, datastacks} from './stacks'
 import {Router} from './routers'
 // import {Request} from './requests'
-// import {load} from './loaders'
+import {load} from './loaders'
 import {ready, debounce, range, randomCharacters, findAttribute, getTarget, findElementWithAttribute} from './utils'
 import {render, node } from './renderers'
 import {Component, model} from './components'
@@ -20,7 +20,7 @@ export {
     // process_callbacks, 
     // trigger_call, 
     // Request, 
-    // load, 
+    load, 
     ready, 
     debounce, 
     range, 

@@ -20,7 +20,7 @@ export const node = function (nodeName, attributes, ...args) {
     // TODO
     // - Cleanup SVG hack
     if (!(porterNodeIdentifier in attributes) && !(['svg', 'use'].includes(nodeName))) {
-        attributes[porterNodeIdentifier] = p.randomCharacters(18)
+        attributes[porterNodeIdentifier] = 'p' + p.randomCharacters(18)
     }
     // console.log('nodeName', nodeName, attributes)
 

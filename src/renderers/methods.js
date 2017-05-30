@@ -35,7 +35,7 @@ export const renderItem = function (virtualNode) {
             if (component.actions()) {
                 componentActions[identifier] = {}
                 for (let [action, fn] of component.actions(component.state)) {
-                    componentActions[identifier][action] = fn
+                    componentActions[identifier][action] = fn.bind(component)
                 }
             }
         } else {
@@ -109,8 +109,13 @@ export const renderItem = function (virtualNode) {
     //      Else:
     //          call virtualNode.postUpdate()
     if (component !== null) {
-        const callbackEvent = (created) ? component.postMount : component.postUpdate
-        callbackEvent(component.props, component.state)
+        // const callbackEvent = (created) ? component.postMount.bind(component) : component.postUpdate.bind(component)
+        // callbackEvent.call(component.props, component.state)
+        if (created) {
+            component.postMount(component.props, component.state)
+        } else {
+            component.postUpdate(component.props, component.state)
+        }
     }
 
     return element

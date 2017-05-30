@@ -19,7 +19,8 @@ export class DataStack {
     }
 
     set (key, value, callback) {
-        this.storage[key] = value
+        // this.storage[key] = value
+        this.storage.setProperty(key, value)
         if (callback !== undefined) {
             callback.apply()
         }
@@ -31,27 +32,29 @@ export class DataStack {
     // - Documentation
     establish (key, value, callback) {
         this.set(key, value, callback)
-        const label = CONFIG.buildTrigger
-        this.events.dispatch(label)
+        events.dispatch(CONFIG.buildTrigger)
     }
 
     push (key, value, callback) {
-        if (this.storage[key] == undefined) {
-            this.storage[key] = []
+        if (this.storage.getProperty(key) == undefined) {
+            this.storage.setProperty(key, [])
         }
-        this.storage[key].push(value)
+        this.storage.getProperty(key).push(value)
         if (callback !== undefined) {
             callback.apply()
         }
         const label = `StackChange||${key}||${this.events.label}`
         this.events.dispatch(label, value)
+        console.log(CONFIG.buildTrigger)
+        events.dispatch(CONFIG.buildTrigger)
     }
 
     get (key, def=null) {
-        if (this.storage[key] == undefined) {
-            return def
-        }
-        return this.storage[key]
+        const retrieve = this.storage.getProperty(key) || def
+        // if (!retrieve) {
+        //     return def
+        // }
+        return retrieve
     }
 
     keys () {
@@ -68,5 +71,6 @@ export class DataStack {
         }
         const label = `StackChange||${key}||${this.events.label}`
         this.events.dispatch(label, value, property, obj)
+        events.dispatch(CONFIG.buildTrigger)
     }
 }
