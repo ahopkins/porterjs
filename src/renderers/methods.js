@@ -5,6 +5,8 @@ import {node, nodeHashes, generateNodeHash} from './node'
 const porterNodeIdentifier = CONFIG.porterNodeIdentifier
 const porterNodeHash = CONFIG.porterNodeHash
 
+export let operations = []
+
 export const renderItem = function (virtualNode) {  
     // https://medium.com/@rajaraodv/the-inner-workings-of-virtual-dom-666ee7ad47cf
     if (Number.isInteger(virtualNode)) virtualNode = virtualNode.toString()
@@ -111,11 +113,13 @@ export const renderItem = function (virtualNode) {
     if (component !== null) {
         // const callbackEvent = (created) ? component.postMount.bind(component) : component.postUpdate.bind(component)
         // callbackEvent.call(component.props, component.state)
-        if (created) {
-            component.postMount(component.props, component.state)
-        } else {
-            component.postUpdate(component.props, component.state)
-        }
+        // if (created) {
+        //     component.postMount(component.props, component.state)
+        // } else {
+        //     component.postUpdate(component.props, component.state)
+        // }
+        const op = (created) ? 'postMount' : 'postUpdate'
+        operations.push([component, op])
     }
 
     return element

@@ -21,7 +21,7 @@ export class Router {
     }
 
     trigger (e, path=null) {
-
+        console.log('!!!')
         if (!path) {
             path = (e && getLocation(e.srcElement)) 
                  ? getLocation(e.srcElement).replace(/(?:(?:http|https):\/\/(?:[a-z0-8:\.]*))?\//g, '/')
@@ -54,6 +54,17 @@ export class Router {
             this.current.rendered = (path) ? path : '/'
             this.execute(null, items)
         }
+    }
+
+    build (name, params) {
+        const route = this.namedRoutes.getProperty(name)
+        let path = route.path
+        for (let [key, value] of params) {
+            const regex = new RegExp(`(\{${key}:.*\})`)
+            const subst = value
+            path = path.replace(regex, subst)
+        }
+        return path
     }
 
     getRoute (path) {
