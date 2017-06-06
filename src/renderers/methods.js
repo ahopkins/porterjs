@@ -5,7 +5,11 @@ import {node, nodeHashes, generateNodeHash} from './node'
 const porterNodeIdentifier = CONFIG.porterNodeIdentifier
 const porterNodeHash = CONFIG.porterNodeHash
 
-export let operations = []
+export let operations = {}
+
+export const clearOperations = function () {
+    operations = {}
+}
 
 export const renderItem = function (virtualNode) {  
     // https://medium.com/@rajaraodv/the-inner-workings-of-virtual-dom-666ee7ad47cf
@@ -119,7 +123,7 @@ export const renderItem = function (virtualNode) {
         //     component.postUpdate(component.props, component.state)
         // }
         const op = (created) ? 'postMount' : 'postUpdate'
-        operations.push([component, op])
+        operations[attributes[CONFIG.porterNodeIdentifier]] = [component, op]
     }
 
     return element

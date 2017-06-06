@@ -21,7 +21,6 @@ export class Router {
     }
 
     trigger (e, path=null) {
-        console.log('!!!')
         if (!path) {
             path = (e && getLocation(e.srcElement)) 
                  ? getLocation(e.srcElement).replace(/(?:(?:http|https):\/\/(?:[a-z0-8:\.]*))?\//g, '/')

@@ -1,5 +1,5 @@
 import {one, all, events} from '../public'
-import {renderItem, operations} from './methods'
+import {renderItem, operations, clearOperations} from './methods'
 
 export default class VirtualDom {
     constructor (virtualNode, selector) {
@@ -14,14 +14,18 @@ export default class VirtualDom {
         this.clear()
 
         this.rendered = renderItem(this.virtualNode)
-        one(this.selector).appendChild(this.rendered)
+        if (this.rendered) {
+            one(this.selector).appendChild(this.rendered)
+        }
 
-        for (let o of operations) {
+        for (let [_, o] of operations) {
             const component = o[0]
             const operation = o[1]
 
             component[operation](component.props, component.state)
         }
+
+        clearOperations()
 
         events.dispatch('virtualDomBuild', this)
     }
