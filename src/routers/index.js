@@ -129,6 +129,7 @@ export class Router {
                     events.dispatch('pushPath')
                 }
             }
+            window.scrollTo(0, 0)
             this.current.trigger(e, items)
         }
     }
