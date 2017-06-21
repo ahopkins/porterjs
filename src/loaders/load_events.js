@@ -2,7 +2,7 @@ import {one, all} from '../public'
 import {findAttribute, findElementWithAttribute} from '../utils'
 
 const eventListener = function (e) {
-    const element = e.srcElement,
+    const element = e.target,
           attribute = `data-${e.type}`,
           fn = findAttribute(element, attribute),
           target = findElementWithAttribute(element, attribute),

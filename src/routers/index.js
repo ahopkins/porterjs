@@ -23,8 +23,8 @@ export class Router {
     trigger (e, path=null) {
 
         if (!path) {
-            path = (e && getLocation(e.srcElement)) 
-                 ? getLocation(e.srcElement).replace(/(?:(?:http|https):\/\/(?:[a-z0-8:]*))?\//g, '/')
+            path = (e && getLocation(e.target)) 
+                 ? getLocation(e.target).replace(/(?:(?:http|https):\/\/(?:[a-z0-8:]*))?\//g, '/')
                  : window.location.pathname
         }
 

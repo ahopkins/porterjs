@@ -8,21 +8,21 @@ const togglerMethod = (e) => {
     e.stopPropagation()
 
     // console.log(classes)
-    let target = one(findAttribute(e.srcElement, 'href'))
+    let target = one(findAttribute(e.target, 'href'))
     if (target == null) {
-        const raw = findAttribute(e.srcElement, 'data-target')
+        const raw = findAttribute(e.target, 'data-target')
         if (raw == 'self') {
-            target = e.srcElement
+            target = e.target
         } else {
             target = one("#"+raw)
         }
     }
 
-    if (e.srcElement.hasClass('ignore-toggle') || e.srcElement.hasClass('ignore-self') || e.srcElement.hasClass('exclude')) {
+    if (e.target.hasClass('ignore-toggle') || e.target.hasClass('ignore-self') || e.target.hasClass('exclude')) {
         return false
     }
 
-    let classes = findAttribute(e.srcElement, 'data-class').split(' ')
+    let classes = findAttribute(e.target, 'data-class').split(' ')
     
     for (let cls of classes) {
         target.toggleClass(cls)
@@ -44,7 +44,7 @@ const changeHash = (e) => {
     e.preventDefault()
     e.stopPropagation()
 
-    const hash = findAttribute(e.srcElement, 'data-hash')
+    const hash = findAttribute(e.target, 'data-hash')
     window.location.hash = hash
 }
 
