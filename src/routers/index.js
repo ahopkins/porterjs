@@ -22,8 +22,8 @@ export class Router {
 
     trigger (e, path=null) {
         if (!path) {
-            path = (e && getLocation(e.srcElement)) 
-                 ? getLocation(e.srcElement).replace(/(?:(?:http|https):\/\/(?:[a-z0-8:\.]*))?\//g, '/')
+            path = (e && getLocation(e.target)) 
+                 ? getLocation(e.target).replace(/(?:(?:http|https):\/\/(?:[a-z0-8:\.]*))?\//g, '/')
                  : window.location.pathname
         }
 
@@ -59,10 +59,12 @@ export class Router {
         const route = this.namedRoutes.getProperty(name)
         let path = route.path
         for (let [key, value] of params) {
-            const regex = new RegExp(`(\{${key}:.*\})`)
+            // const regex = new RegExp(`(\{${key}:.*\})`)
+            const regex = new RegExp(`(\{${key}:[^\}]*\})`)
             const subst = value
             path = path.replace(regex, subst)
         }
+        // console.log('found', name, params, path, route.rendered)
         return path
     }
 

@@ -58,9 +58,9 @@ export function findElementWithAttribute (element, attribute, value=null) {
 }
 
 export function getTarget (e) {
-    const attr = findAttribute(e.srcElement, 'data-target')
+    const attr = findAttribute(e.target, 'data-target')
     if (attr == 'self') {
-        return e.srcElement
+        return e.target
     } else {
         return one(`#${attr}`)
     }
