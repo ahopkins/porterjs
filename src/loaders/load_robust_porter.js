@@ -6,7 +6,6 @@ const modalOpener = (e) => {
     e.stopPropagation()
 
     const id = findAttribute(e.target, 'data-target')
-    console.log(id)
 
     const modal = new pModal(`#${id}`)
     modal.open()

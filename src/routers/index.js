@@ -136,6 +136,7 @@ export class Router {
         if (this.current === null) {
             console.error("No current route set. Cannot execute.")
         } else {
+            this.current.hash = window.location.hash
             if (this.current.history) {
                 if (settings.pushPath) {
                     window.history.pushState({

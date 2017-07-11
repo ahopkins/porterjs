@@ -7,4 +7,7 @@ require("expose-loader?p!./public.js")
 
 modifiers.startup()
 
+console.log('hash', window.location.hash)
+console.log('loc', window.location)
+
 ready().then(() => startup())

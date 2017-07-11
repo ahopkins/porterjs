@@ -7,7 +7,7 @@ import {Router} from './routers'
 // import {Request} from './requests'
 import {load} from './loaders'
 import {ready, debounce, range, randomCharacters, findAttribute, getTarget, findElementWithAttribute} from './utils'
-import {render, node } from './renderers'
+import {render, node, renderItem, runOperations} from './renderers'
 import {Component, model} from './components'
 
 export const one = NodeQuery.one.bind(document)
@@ -28,7 +28,9 @@ export {
     findAttribute, 
     getTarget, 
     render, 
-    node, 
+    node,
+    renderItem,
+    runOperations,
     model,
     Component, 
     middleware, 

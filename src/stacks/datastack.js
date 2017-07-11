@@ -45,7 +45,6 @@ export class DataStack {
         }
         const label = `StackChange||${key}||${this.events.label}`
         this.events.dispatch(label, value)
-        console.log(CONFIG.buildTrigger)
         events.dispatch(CONFIG.buildTrigger)
     }
 

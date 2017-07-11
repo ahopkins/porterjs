@@ -13,10 +13,14 @@ export default class VirtualDom {
         (!!all(`${this.selector} > [data-porter-node]`).queryset.length) && 
         this.clear()
 
+        // console.log(this.virtualNode)
         this.rendered = renderItem(this.virtualNode)
         if (this.rendered) {
+            // console.log('rendered', this.rendered)
             one(this.selector).appendChild(this.rendered)
         }
+
+        // console.log('operations', operations)
 
         for (let [_, o] of operations) {
             const component = o[0]

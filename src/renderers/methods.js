@@ -1,3 +1,4 @@
+import {load} from '../loaders'
 import {one, stack, componentActions} from '../public'
 import {CONFIG} from '../config'
 import {node, nodeHashes, generateNodeHash} from './node'
@@ -9,6 +10,21 @@ export let operations = {}
 
 export const clearOperations = function () {
     operations = {}
+}
+
+export const runOperations = function (runLoad=false) {
+    for (let [_, o] of operations) {
+        const component = o[0]
+        const operation = o[1]
+
+        component[operation](component.props, component.state)
+    }
+
+    if (runLoad) {
+        load()
+    }
+
+    clearOperations()
 }
 
 export const renderItem = function (virtualNode) {  
